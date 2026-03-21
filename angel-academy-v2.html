@@ -1,0 +1,1556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Angel Academy AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg-deep:#07090F;--bg-surface:#0D1117;--bg-card:#131B2E;--bg-card2:#1A2540;--bg-card3:#1F2D4A;
+  --accent-purple:#9B72F8;--accent-teal:#0FD4A0;--accent-gold:#FFC233;--accent-pink:#FF6FAD;--accent-blue:#4B9EFF;--accent-orange:#FF8C42;
+  --text-1:#EEF2FF;--text-2:#8A9ABF;--text-3:#404E70;
+  --age-56:#FF6FAD;--age-78:#0FD4A0;--age-910:#9B72F8;--age-1112:#FFC233;
+  --r-md:10px;--r-lg:16px;--r-xl:22px;--r-full:999px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg-deep);color:var(--text-1);min-height:100vh;overflow-x:hidden;}
+
+/* ── AMBIENT BG ── */
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(ellipse 55% 45% at 10% 10%,rgba(155,114,248,.07) 0%,transparent 60%),
+    radial-gradient(ellipse 45% 38% at 88% 82%,rgba(15,212,160,.06) 0%,transparent 55%),
+    radial-gradient(ellipse 38% 30% at 68% 8%,rgba(255,194,51,.04) 0%,transparent 45%),
+    radial-gradient(1.5px 1.5px at 15% 25%,rgba(255,255,255,.3) 0%,transparent 100%),
+    radial-gradient(1px 1px at 35% 65%,rgba(255,255,255,.22) 0%,transparent 100%),
+    radial-gradient(1.5px 1.5px at 60% 35%,rgba(255,255,255,.28) 0%,transparent 100%),
+    radial-gradient(1px 1px at 80% 72%,rgba(255,255,255,.18) 0%,transparent 100%),
+    radial-gradient(1px 1px at 92% 18%,rgba(255,255,255,.32) 0%,transparent 100%),
+    radial-gradient(1px 1px at 22% 88%,rgba(255,255,255,.18) 0%,transparent 100%),
+    radial-gradient(1.5px 1.5px at 50% 55%,rgba(255,255,255,.14) 0%,transparent 100%),
+    radial-gradient(1px 1px at 42% 92%,rgba(255,255,255,.22) 0%,transparent 100%);}
+
+.app{position:relative;z-index:1;}
+
+/* ── NAV ── */
+.nav{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.75rem;
+  border-bottom:1px solid rgba(255,255,255,.05);background:rgba(7,9,15,.88);
+  backdrop-filter:blur(16px);position:sticky;top:0;z-index:200;}
+.nav-logo{cursor:pointer;}
+.nav-brand{font-family:'Fredoka',sans-serif;font-size:1.38rem;font-weight:600;
+  background:linear-gradient(130deg,var(--accent-teal) 0%,var(--accent-purple) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.nav-sub{font-size:.68rem;color:var(--text-3);letter-spacing:.03em;}
+.nav-pills{display:flex;align-items:center;gap:.6rem;}
+.streak-pill{display:flex;align-items:center;gap:.3rem;background:rgba(255,140,66,.1);
+  border:1px solid rgba(255,140,66,.22);border-radius:var(--r-full);padding:.3rem .8rem;
+  font-size:.8rem;font-weight:600;color:var(--accent-orange);cursor:pointer;}
+.xp-pill{display:flex;align-items:center;gap:.3rem;background:rgba(255,194,51,.1);
+  border:1px solid rgba(255,194,51,.22);border-radius:var(--r-full);padding:.3rem .8rem;
+  font-size:.8rem;font-weight:600;color:var(--accent-gold);}
+.btn{padding:.5rem 1.2rem;border-radius:var(--r-full);border:none;cursor:pointer;
+  font-family:'DM Sans',sans-serif;font-weight:500;font-size:.86rem;transition:all .2s;line-height:1;}
+.btn-primary{background:linear-gradient(135deg,#7C3AED,#5B21B6);color:#fff;}
+.btn-primary:hover{filter:brightness(1.15);transform:translateY(-1px);}
+.btn-teal{background:linear-gradient(135deg,#0FD4A0,#059669);color:#052e1c;font-weight:600;}
+.btn-teal:hover{filter:brightness(1.08);transform:translateY(-1px);}
+.btn-ghost{background:rgba(255,255,255,.06);color:var(--text-1);border:1px solid rgba(255,255,255,.09);}
+.btn-ghost:hover{background:rgba(255,255,255,.1);}
+.btn-lg{padding:.82rem 2.2rem;font-size:1rem;}
+.btn-block{width:100%;}
+
+/* ── SCREENS ── */
+.screen{display:none;}
+.screen.active{display:block;animation:fadeUp .35s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+@keyframes pop{0%{transform:scale(0) rotate(-12deg);opacity:0;}65%{transform:scale(1.3) rotate(6deg);}100%{transform:scale(1) rotate(0);opacity:1;}}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-7px);}}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.6;}}
+@keyframes shimmer{0%{background-position:-200% 0;}100%{background-position:200% 0;}}
+
+/* ════════════════════════════════════════
+   HOME SCREEN
+════════════════════════════════════════ */
+.home-wrap{max-width:900px;margin:0 auto;padding:0 1.5rem;}
+
+/* Streak banner */
+.streak-banner{background:linear-gradient(135deg,rgba(255,140,66,.12),rgba(255,194,51,.08));
+  border:1px solid rgba(255,140,66,.2);border-radius:var(--r-lg);
+  padding:1.1rem 1.5rem;margin:1.5rem 0;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;}
+.streak-flame{font-size:2.2rem;animation:float 2.5s ease-in-out infinite;}
+.streak-info{flex:1;}
+.streak-title{font-family:'Fredoka',sans-serif;font-size:1.1rem;color:var(--accent-orange);}
+.streak-sub{font-size:.8rem;color:var(--text-2);margin-top:2px;}
+.streak-count{font-family:'Fredoka',sans-serif;font-size:2.4rem;font-weight:700;color:var(--accent-orange);text-align:right;}
+.streak-days{display:flex;gap:5px;margin-top:.6rem;}
+.sday{width:30px;height:30px;border-radius:var(--r-md);background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;font-size:.75rem;color:var(--text-3);}
+.sday.sday-done{background:rgba(255,140,66,.18);border-color:rgba(255,140,66,.35);color:var(--accent-orange);}
+.sday.sday-today{background:rgba(255,140,66,.28);border-color:var(--accent-orange);color:var(--accent-orange);font-weight:700;}
+
+/* Hero */
+.hero{text-align:center;padding:3rem 0 1.5rem;}
+.hero-badge{display:inline-flex;align-items:center;gap:.4rem;background:rgba(15,212,160,.08);
+  border:1px solid rgba(15,212,160,.18);border-radius:var(--r-full);padding:.35rem .95rem;
+  font-size:.76rem;color:var(--accent-teal);margin-bottom:1.2rem;font-weight:500;}
+.hero-title{font-family:'Fredoka',sans-serif;font-size:clamp(2.2rem,5.5vw,3.5rem);font-weight:700;line-height:1.13;margin-bottom:.9rem;}
+.gtext{background:linear-gradient(135deg,var(--accent-teal) 0%,var(--accent-purple) 50%,var(--accent-pink) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-sub{font-size:1rem;color:var(--text-2);line-height:1.72;margin-bottom:2rem;max-width:480px;margin-left:auto;margin-right:auto;}
+
+/* Quick stats */
+.quick-stats{display:flex;justify-content:center;gap:2rem;margin-bottom:2.8rem;flex-wrap:wrap;}
+.qs{text-align:center;}
+.qs-num{font-family:'Fredoka',sans-serif;font-size:1.55rem;font-weight:600;}
+.qs-label{font-size:.72rem;color:var(--text-3);margin-top:1px;}
+
+/* Age cards */
+.section-label{font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--text-3);margin-bottom:.9rem;}
+.age-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1rem;margin-bottom:2rem;}
+.age-card{background:var(--bg-card);border:1px solid rgba(255,255,255,.06);border-radius:var(--r-xl);
+  padding:1.6rem 1.3rem;cursor:pointer;transition:all .25s;text-align:center;position:relative;overflow:hidden;}
+.age-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:var(--r-xl) var(--r-xl) 0 0;}
+.age-card::after{content:'';position:absolute;inset:0;opacity:0;transition:opacity .3s;border-radius:var(--r-xl);}
+.age-card.c-pink::before{background:var(--age-56);}
+.age-card.c-teal::before{background:var(--age-78);}
+.age-card.c-purple::before{background:var(--age-910);}
+.age-card.c-gold::before{background:var(--age-1112);}
+.age-card.c-pink::after{background:radial-gradient(ellipse at 50% 0%,rgba(255,111,173,.07) 0%,transparent 70%);}
+.age-card.c-teal::after{background:radial-gradient(ellipse at 50% 0%,rgba(15,212,160,.07) 0%,transparent 70%);}
+.age-card.c-purple::after{background:radial-gradient(ellipse at 50% 0%,rgba(155,114,248,.07) 0%,transparent 70%);}
+.age-card.c-gold::after{background:radial-gradient(ellipse at 50% 0%,rgba(255,194,51,.07) 0%,transparent 70%);}
+.age-card:hover{transform:translateY(-5px);}
+.age-card:hover::after{opacity:1;}
+.age-card.c-pink:hover{border-color:rgba(255,111,173,.25);box-shadow:0 12px 40px rgba(255,111,173,.15);}
+.age-card.c-teal:hover{border-color:rgba(15,212,160,.25);box-shadow:0 12px 40px rgba(15,212,160,.15);}
+.age-card.c-purple:hover{border-color:rgba(155,114,248,.25);box-shadow:0 12px 40px rgba(155,114,248,.15);}
+.age-card.c-gold:hover{border-color:rgba(255,194,51,.25);box-shadow:0 12px 40px rgba(255,194,51,.15);}
+.age-emoji{font-size:2.3rem;margin-bottom:.65rem;display:block;animation:float 3s ease-in-out infinite;}
+.age-card:nth-child(2) .age-emoji{animation-delay:.6s;}
+.age-card:nth-child(3) .age-emoji{animation-delay:1.1s;}
+.age-card:nth-child(4) .age-emoji{animation-delay:1.6s;}
+.age-range{font-family:'Fredoka',sans-serif;font-size:1.4rem;font-weight:600;margin-bottom:.18rem;}
+.age-card.c-pink .age-range{color:var(--age-56);}
+.age-card.c-teal .age-range{color:var(--age-78);}
+.age-card.c-purple .age-range{color:var(--age-910);}
+.age-card.c-gold .age-range{color:var(--age-1112);}
+.age-course-name{font-size:.8rem;color:var(--text-2);margin-bottom:.75rem;}
+.progress-mini{height:4px;background:rgba(255,255,255,.07);border-radius:2px;margin-bottom:.55rem;overflow:hidden;}
+.progress-mini-fill{height:100%;border-radius:2px;transition:width .5s ease;}
+.age-meta{font-size:.7rem;color:var(--text-3);}
+.free-chip{display:inline-block;font-size:.66rem;background:rgba(15,212,160,.09);
+  border:1px solid rgba(15,212,160,.18);color:var(--accent-teal);border-radius:var(--r-full);
+  padding:.14rem .6rem;font-weight:600;margin-top:.45rem;}
+
+/* Feature cards row */
+.features-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.85rem;margin-bottom:3rem;}
+.feat-card{background:var(--bg-card);border:1px solid rgba(255,255,255,.055);border-radius:var(--r-lg);
+  padding:1.3rem;cursor:pointer;transition:all .22s;}
+.feat-card:hover{background:var(--bg-card2);transform:translateY(-3px);}
+.feat-icon{font-size:1.6rem;margin-bottom:.6rem;}
+.feat-title{font-family:'Fredoka',sans-serif;font-size:1rem;margin-bottom:.3rem;}
+.feat-desc{font-size:.78rem;color:var(--text-2);line-height:1.55;}
+.feat-badge{display:inline-block;font-size:.65rem;font-weight:700;border-radius:var(--r-full);
+  padding:.12rem .55rem;margin-top:.5rem;}
+.feat-badge.new{background:rgba(255,111,173,.12);color:var(--accent-pink);border:1px solid rgba(255,111,173,.2);}
+.feat-badge.live{background:rgba(15,212,160,.1);color:var(--accent-teal);border:1px solid rgba(15,212,160,.2);animation:pulse 2s infinite;}
+
+/* ════════════════════════════════════════
+   COURSE DASHBOARD SCREEN
+════════════════════════════════════════ */
+.dash-wrap{max-width:820px;margin:0 auto;padding:0 1.5rem 4rem;}
+.back-btn{display:inline-flex;align-items:center;gap:.4rem;color:var(--text-2);
+  background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;
+  font-size:.86rem;padding:.9rem 0 .6rem;transition:color .2s;}
+.back-btn:hover{color:var(--text-1);}
+
+/* Course hero */
+.course-hero{background:var(--bg-card);border:1px solid rgba(255,255,255,.06);
+  border-radius:var(--r-xl);padding:1.75rem;margin-bottom:1.25rem;position:relative;overflow:hidden;}
+.course-hero::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:var(--r-xl) var(--r-xl) 0 0;}
+.course-hero-inner{display:flex;align-items:flex-start;gap:1.25rem;}
+.course-big-emoji{font-size:3rem;animation:float 3.5s ease-in-out infinite;flex-shrink:0;}
+.course-info{flex:1;}
+.course-age-chip{display:inline-block;font-size:.7rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:.07em;border-radius:var(--r-full);padding:.25rem .8rem;margin-bottom:.5rem;}
+.course-title{font-family:'Fredoka',sans-serif;font-size:1.65rem;font-weight:600;margin-bottom:.3rem;}
+.course-desc{font-size:.86rem;color:var(--text-2);line-height:1.65;margin-bottom:.9rem;}
+.course-stats-row{display:flex;gap:1.5rem;flex-wrap:wrap;}
+.c-stat{text-align:left;}
+.c-stat-num{font-family:'Fredoka',sans-serif;font-size:1.2rem;font-weight:600;}
+.c-stat-label{font-size:.7rem;color:var(--text-3);}
+
+/* Overall progress bar */
+.overall-prog{margin-bottom:1.5rem;}
+.prog-label-row{display:flex;justify-content:space-between;margin-bottom:.45rem;}
+.prog-label{font-size:.78rem;color:var(--text-2);}
+.prog-pct{font-size:.78rem;font-weight:600;}
+.prog-bar-track{height:7px;background:rgba(255,255,255,.07);border-radius:4px;overflow:hidden;}
+.prog-bar-fill{height:100%;border-radius:4px;transition:width .6s ease;}
+
+/* Sub/unlock banner */
+.unlock-banner{background:linear-gradient(135deg,rgba(155,114,248,.12),rgba(15,212,160,.08));
+  border:1px solid rgba(155,114,248,.22);border-radius:var(--r-lg);
+  padding:1.25rem 1.5rem;margin-bottom:1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+.ub-left .ub-title{font-family:'Fredoka',sans-serif;font-size:1.05rem;margin-bottom:.2rem;}
+.ub-left .ub-sub{font-size:.8rem;color:var(--text-2);}
+.ub-right{display:flex;align-items:center;gap:.9rem;flex-shrink:0;}
+.price-tag{font-family:'Fredoka',sans-serif;font-size:1.35rem;color:var(--accent-gold);}
+.price-tag span{font-size:.75rem;font-family:'DM Sans',sans-serif;font-weight:400;color:var(--text-3);}
+
+/* Module blocks */
+.module-block{margin-bottom:1.1rem;}
+.module-header{display:flex;align-items:center;gap:.75rem;padding:.7rem 0 .55rem;cursor:pointer;user-select:none;}
+.module-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0;}
+.module-title-text{font-family:'Fredoka',sans-serif;font-size:1.05rem;flex:1;}
+.module-prog-chip{font-size:.72rem;font-weight:600;border-radius:var(--r-full);padding:.18rem .65rem;}
+.module-chevron{font-size:.85rem;color:var(--text-3);transition:transform .22s;}
+.module-chevron.open{transform:rotate(180deg);}
+.lesson-rows{display:flex;flex-direction:column;gap:.5rem;overflow:hidden;transition:max-height .35s ease;}
+
+/* Lesson row */
+.l-row{background:var(--bg-card);border:1px solid rgba(255,255,255,.055);border-radius:var(--r-lg);
+  padding:.95rem 1.2rem;display:flex;align-items:center;gap:.95rem;cursor:pointer;transition:all .2s;}
+.l-row:hover:not(.l-locked){background:var(--bg-card2);transform:translateX(3px);}
+.l-row.l-locked{cursor:default;opacity:.5;}
+.l-row.l-done{border-color:rgba(15,212,160,.15);}
+.l-num{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.88rem;font-weight:700;flex-shrink:0;}
+.l-num-free{background:rgba(15,212,160,.12);color:var(--accent-teal);border:1px solid rgba(15,212,160,.25);}
+.l-num-locked{background:rgba(255,255,255,.04);color:var(--text-3);border:1px solid rgba(255,255,255,.07);}
+.l-num-done{background:rgba(15,212,160,.15);color:var(--accent-teal);border:1px solid rgba(15,212,160,.3);}
+.l-info{flex:1;min-width:0;}
+.l-title{font-weight:500;font-size:.9rem;margin-bottom:.18rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.l-meta{font-size:.74rem;color:var(--text-2);display:flex;align-items:center;gap:.55rem;flex-wrap:wrap;}
+.badge-free{background:rgba(15,212,160,.09);color:var(--accent-teal);border:1px solid rgba(15,212,160,.18);
+  border-radius:var(--r-full);padding:.1rem .5rem;font-size:.65rem;font-weight:700;}
+.badge-prem{background:rgba(155,114,248,.09);color:var(--accent-purple);border:1px solid rgba(155,114,248,.18);
+  border-radius:var(--r-full);padding:.1rem .5rem;font-size:.65rem;font-weight:700;}
+.l-stars{font-size:.82rem;}
+.l-arrow{color:var(--text-3);font-size:.85rem;flex-shrink:0;}
+
+/* ════════════════════════════════════════
+   LESSON PLAYER SCREEN
+════════════════════════════════════════ */
+.lesson-topbar{display:flex;align-items:center;padding:1rem 1.75rem;max-width:780px;margin:0 auto;gap:1rem;}
+.lesson-title-bar{flex:1;text-align:center;}
+.lesson-name-small{font-size:.78rem;color:var(--text-2);}
+.l-prog-bar{height:5px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden;margin-top:.3rem;}
+.l-prog-fill{height:100%;border-radius:3px;transition:width .45s ease;}
+.slide-ctr{font-size:.76rem;color:var(--text-3);min-width:36px;text-align:right;}
+.lesson-body{max-width:680px;margin:0 auto;padding:.5rem 1.5rem 4rem;}
+
+/* Slides */
+.slide{display:none;}
+.slide.s-active{display:block;animation:fadeUp .3s ease;}
+.s-tag{display:inline-flex;align-items:center;gap:.35rem;font-size:.7rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.08em;padding:.25rem .8rem;border-radius:var(--r-full);margin-bottom:.85rem;}
+.s-heading{font-family:'Fredoka',sans-serif;font-size:clamp(1.5rem,3.8vw,2.2rem);font-weight:600;line-height:1.2;margin-bottom:1rem;}
+.s-body{font-size:.98rem;color:var(--text-2);line-height:1.8;margin-bottom:1.15rem;}
+
+/* Char box */
+.char-box{display:flex;gap:1rem;background:var(--bg-card);border:1px solid rgba(255,255,255,.06);
+  border-radius:var(--r-lg);padding:1.25rem;margin:1.1rem 0;align-items:flex-start;}
+.char-av{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.55rem;flex-shrink:0;}
+.char-name-label{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-3);margin-bottom:.38rem;}
+.speech{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);
+  border-radius:var(--r-md);padding:.85rem 1rem;font-size:.9rem;line-height:1.68;}
+
+/* Fun fact */
+.fun-fact{background:rgba(255,194,51,.06);border:1px solid rgba(255,194,51,.16);
+  border-left:3px solid var(--accent-gold);border-radius:var(--r-md);padding:1.05rem 1.3rem;margin:1.1rem 0;}
+.ff-label{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--accent-gold);margin-bottom:.4rem;}
+.fun-fact p{font-size:.9rem;color:var(--text-1);line-height:1.68;}
+
+/* Code/highlight block */
+.hl-box{background:rgba(155,114,248,.07);border:1px solid rgba(155,114,248,.16);
+  border-radius:var(--r-lg);padding:1.3rem 1.4rem;margin:1.1rem 0;}
+.hl-box pre{font-family:'DM Sans',sans-serif;white-space:pre-wrap;font-size:.9rem;line-height:1.88;color:var(--text-1);}
+
+/* Interactive mini quiz */
+.int-box{background:var(--bg-card);border:1px solid rgba(255,255,255,.07);
+  border-radius:var(--r-lg);padding:1.5rem;margin:1.5rem 0;}
+.int-title{font-family:'Fredoka',sans-serif;font-size:1.05rem;color:var(--accent-teal);margin-bottom:.45rem;}
+.int-q{font-size:.87rem;color:var(--text-2);margin-bottom:.8rem;line-height:1.55;}
+.opt-grid{display:grid;grid-template-columns:1fr 1fr;gap:.55rem;}
+.opt-btn{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);
+  border-radius:var(--r-md);padding:.78rem .9rem;cursor:pointer;font-family:'DM Sans',sans-serif;
+  font-size:.86rem;color:var(--text-1);text-align:left;transition:all .17s;line-height:1.38;}
+.opt-btn:hover:not(:disabled){background:rgba(155,114,248,.09);border-color:rgba(155,114,248,.28);}
+.opt-btn.opt-c{background:rgba(15,212,160,.12);border-color:rgba(15,212,160,.38);color:var(--accent-teal);}
+.opt-btn.opt-w{background:rgba(255,80,80,.08);border-color:rgba(255,80,80,.3);}
+.int-fb{margin-top:.85rem;padding:.75rem 1rem;border-radius:var(--r-md);font-size:.86rem;font-weight:500;display:none;}
+.int-fb.fb-ok{background:rgba(15,212,160,.1);border:1px solid rgba(15,212,160,.22);color:var(--accent-teal);display:block;}
+.int-fb.fb-no{background:rgba(255,80,80,.07);border:1px solid rgba(255,80,80,.18);color:#ff8585;display:block;}
+
+/* Slide nav */
+.slide-nav{display:flex;justify-content:space-between;align-items:center;margin-top:2rem;padding-top:1.15rem;border-top:1px solid rgba(255,255,255,.06);}
+.s-dots{display:flex;gap:4px;}
+.s-dot{width:6px;height:6px;border-radius:3px;background:rgba(255,255,255,.12);transition:all .22s;}
+.s-dot.d-cur{width:20px;background:var(--accent-purple);}
+.s-dot.d-done{background:var(--accent-teal);}
+
+/* ════════════════════════════════════════
+   QUIZ SCREEN
+════════════════════════════════════════ */
+.quiz-wrap{max-width:600px;margin:0 auto;padding:2.5rem 1.5rem;}
+.q-top{text-align:center;margin-bottom:2rem;}
+.q-label{font-size:.74rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.6rem;}
+.q-dots{display:flex;gap:6px;justify-content:center;margin-bottom:.85rem;}
+.qd{width:32px;height:4px;border-radius:2px;background:rgba(255,255,255,.08);}
+.qd.qd-cur{background:var(--accent-purple);}
+.qd.qd-done{background:var(--accent-teal);}
+.q-count{font-size:.78rem;color:var(--text-3);}
+.q-text{font-family:'Fredoka',sans-serif;font-size:1.42rem;font-weight:500;line-height:1.4;margin-bottom:1.6rem;text-align:center;}
+.ans-grid{display:grid;gap:.6rem;}
+.ans-btn{background:var(--bg-card);border:1.5px solid rgba(255,255,255,.07);border-radius:var(--r-lg);
+  padding:.9rem 1.25rem;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.95rem;
+  color:var(--text-1);text-align:left;transition:all .17s;display:flex;align-items:center;gap:.85rem;}
+.ans-btn:hover:not(:disabled){background:var(--bg-card2);border-color:rgba(155,114,248,.38);}
+.ans-btn.ans-c{border-color:var(--accent-teal);background:rgba(15,212,160,.09);}
+.ans-btn.ans-w{border-color:rgba(255,80,80,.4);background:rgba(255,80,80,.07);}
+.ans-letter{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.07);
+  display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0;}
+.ans-btn.ans-c .ans-letter{background:rgba(15,212,160,.22);color:var(--accent-teal);}
+.ans-btn.ans-w .ans-letter{background:rgba(255,80,80,.18);color:#ff8585;}
+.q-fb{margin-top:1rem;padding:.8rem 1.15rem;border-radius:var(--r-md);font-size:.88rem;font-weight:500;display:none;}
+.q-fb.qf-ok{background:rgba(15,212,160,.1);border:1px solid rgba(15,212,160,.22);color:var(--accent-teal);display:block;}
+.q-fb.qf-no{background:rgba(255,80,80,.07);border:1px solid rgba(255,80,80,.18);color:#ff8585;display:block;}
+.q-next-row{text-align:center;margin-top:1.5rem;}
+
+/* ════════════════════════════════════════
+   COMPLETE SCREEN
+════════════════════════════════════════ */
+.complete-wrap{max-width:500px;margin:0 auto;padding:3rem 1.5rem;text-align:center;}
+.complete-big{font-size:4.2rem;display:block;margin-bottom:1.2rem;animation:pop .5s ease;}
+.complete-title{font-family:'Fredoka',sans-serif;font-size:2.3rem;font-weight:700;margin-bottom:.35rem;
+  background:linear-gradient(135deg,var(--accent-gold),var(--accent-pink));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.complete-sub{color:var(--text-2);margin-bottom:1.6rem;font-size:.95rem;line-height:1.68;}
+.stars-row{display:flex;justify-content:center;gap:.6rem;margin:1.1rem 0;}
+.star-item{font-size:2.3rem;animation:pop .42s ease backwards;}
+.star-item:nth-child(2){animation-delay:.13s;}
+.star-item:nth-child(3){animation-delay:.26s;}
+.xp-chip{background:rgba(255,194,51,.1);border:1px solid rgba(255,194,51,.22);
+  border-radius:var(--r-full);padding:.6rem 1.65rem;display:inline-block;
+  margin-bottom:1.6rem;font-weight:600;color:var(--accent-gold);font-size:.92rem;}
+.score-card{background:var(--bg-card);border:1px solid rgba(255,255,255,.06);
+  border-radius:var(--r-lg);padding:1.15rem 1.4rem;margin:1.1rem 0;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;}
+.sc-label{font-size:.78rem;color:var(--text-3);}
+.sc-val{font-family:'Fredoka',sans-serif;font-size:1.75rem;font-weight:600;}
+
+/* Next lesson nudge */
+.next-nudge{background:var(--bg-card2);border:1px solid rgba(255,255,255,.07);
+  border-radius:var(--r-lg);padding:1rem 1.25rem;margin:1rem 0;
+  display:flex;align-items:center;gap:.9rem;text-align:left;}
+.nn-icon{font-size:1.6rem;flex-shrink:0;}
+.nn-label{font-size:.72rem;color:var(--text-3);margin-bottom:.15rem;}
+.nn-title{font-size:.9rem;font-weight:500;}
+.complete-ctas{display:flex;flex-direction:column;gap:.6rem;margin-top:1.5rem;}
+
+/* ════════════════════════════════════════
+   WEEKLY CHALLENGE SCREEN
+════════════════════════════════════════ */
+.challenge-wrap{max-width:680px;margin:0 auto;padding:0 1.5rem 4rem;}
+.wc-hero{background:linear-gradient(135deg,rgba(155,114,248,.13),rgba(255,111,173,.1));
+  border:1px solid rgba(155,114,248,.22);border-radius:var(--r-xl);padding:2rem;margin:1.5rem 0;text-align:center;}
+.wc-emoji{font-size:3rem;margin-bottom:.8rem;display:block;animation:float 3s ease-in-out infinite;}
+.wc-week{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--accent-purple);margin-bottom:.4rem;}
+.wc-title{font-family:'Fredoka',sans-serif;font-size:1.8rem;margin-bottom:.55rem;}
+.wc-desc{font-size:.9rem;color:var(--text-2);line-height:1.68;margin-bottom:1.25rem;}
+.countdown-row{display:flex;justify-content:center;gap:1rem;margin-bottom:1.25rem;flex-wrap:wrap;}
+.cd-item{text-align:center;background:rgba(255,255,255,.06);border-radius:var(--r-md);padding:.6rem .9rem;min-width:54px;}
+.cd-num{font-family:'Fredoka',sans-serif;font-size:1.5rem;font-weight:600;color:var(--accent-purple);}
+.cd-label{font-size:.65rem;color:var(--text-3);text-transform:uppercase;letter-spacing:.06em;}
+.challenge-steps{display:flex;flex-direction:column;gap:.75rem;margin-top:1.5rem;}
+.step-item{background:var(--bg-card);border:1px solid rgba(255,255,255,.06);border-radius:var(--r-lg);
+  padding:1.15rem 1.3rem;display:flex;align-items:flex-start;gap:1rem;}
+.step-num{width:32px;height:32px;border-radius:50%;background:rgba(155,114,248,.15);
+  color:var(--accent-purple);border:1px solid rgba(155,114,248,.28);
+  display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.82rem;flex-shrink:0;}
+.step-content .step-title{font-weight:500;font-size:.92rem;margin-bottom:.25rem;}
+.step-content .step-sub{font-size:.8rem;color:var(--text-2);line-height:1.58;}
+.challenge-input-box{background:var(--bg-card);border:1px solid rgba(255,255,255,.07);
+  border-radius:var(--r-lg);padding:1.4rem;margin-top:1rem;}
+.challenge-textarea{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);
+  border-radius:var(--r-md);padding:.85rem 1rem;font-family:'DM Sans',sans-serif;font-size:.9rem;
+  color:var(--text-1);resize:vertical;min-height:100px;outline:none;transition:border-color .2s;}
+.challenge-textarea::placeholder{color:var(--text-3);}
+.challenge-textarea:focus{border-color:rgba(155,114,248,.4);}
+.challenge-submit-row{display:flex;justify-content:flex-end;margin-top:.75rem;}
+
+/* ════════════════════════════════════════
+   AI PRACTICE ZONE SCREEN
+════════════════════════════════════════ */
+.practice-wrap{max-width:720px;margin:0 auto;padding:0 1.5rem 4rem;}
+.practice-hero{text-align:center;padding:2rem 0 1rem;}
+.practice-hero h2{font-family:'Fredoka',sans-serif;font-size:2rem;margin-bottom:.45rem;}
+.practice-hero p{color:var(--text-2);font-size:.92rem;line-height:1.7;max-width:440px;margin:0 auto;}
+.age-selector-row{display:flex;justify-content:center;gap:.55rem;margin:1.25rem 0;flex-wrap:wrap;}
+.age-sel-btn{background:var(--bg-card);border:1px solid rgba(255,255,255,.08);border-radius:var(--r-full);
+  padding:.4rem 1.05rem;font-size:.82rem;cursor:pointer;color:var(--text-2);transition:all .18s;}
+.age-sel-btn.active{color:var(--text-1);font-weight:600;}
+.prompt-templates{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.7rem;margin-bottom:1.25rem;}
+.template-card{background:var(--bg-card);border:1px solid rgba(255,255,255,.06);border-radius:var(--r-lg);
+  padding:.9rem 1rem;cursor:pointer;transition:all .2s;}
+.template-card:hover{background:var(--bg-card2);border-color:rgba(155,114,248,.25);}
+.template-emoji{font-size:1.35rem;margin-bottom:.35rem;}
+.template-label{font-size:.82rem;font-weight:500;margin-bottom:.18rem;}
+.template-prompt{font-size:.72rem;color:var(--text-3);line-height:1.45;}
+.practice-input-area{background:var(--bg-card);border:1px solid rgba(255,255,255,.07);border-radius:var(--r-xl);overflow:hidden;margin-bottom:1rem;}
+.practice-label-bar{display:flex;align-items:center;justify-content:space-between;padding:.75rem 1.25rem;border-bottom:1px solid rgba(255,255,255,.055);}
+.practice-label-bar span{font-size:.76rem;font-weight:600;color:var(--text-2);}
+.practice-ta{width:100%;background:transparent;border:none;padding:1.1rem 1.25rem;
+  font-family:'DM Sans',sans-serif;font-size:.95rem;color:var(--text-1);resize:none;
+  min-height:90px;outline:none;}
+.practice-ta::placeholder{color:var(--text-3);}
+.practice-actions{display:flex;align-items:center;justify-content:space-between;padding:.75rem 1.1rem;
+  border-top:1px solid rgba(255,255,255,.055);}
+.char-count{font-size:.74rem;color:var(--text-3);}
+.ai-response-area{background:var(--bg-card2);border:1px solid rgba(15,212,160,.15);
+  border-radius:var(--r-xl);padding:1.35rem;min-height:120px;position:relative;}
+.ai-response-label{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--accent-teal);margin-bottom:.75rem;display:flex;align-items:center;gap:.4rem;}
+.ai-response-text{font-size:.92rem;color:var(--text-1);line-height:1.78;}
+.ai-thinking{display:flex;align-items:center;gap:.6rem;color:var(--text-3);font-size:.85rem;}
+.ai-dots span{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent-teal);
+  animation:pulse .8s ease infinite;}
+.ai-dots span:nth-child(2){animation-delay:.18s;}
+.ai-dots span:nth-child(3){animation-delay:.36s;}
+.prompt-tips{background:rgba(255,194,51,.06);border:1px solid rgba(255,194,51,.14);
+  border-radius:var(--r-lg);padding:1.1rem 1.3rem;margin-top:1rem;}
+.tips-title{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--accent-gold);margin-bottom:.6rem;}
+.tips-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;}
+.tip-item{font-size:.78rem;color:var(--text-2);display:flex;align-items:flex-start;gap:.4rem;line-height:1.45;}
+
+/* ════════════════════════════════════════
+   BADGES / ACHIEVEMENTS SCREEN
+════════════════════════════════════════ */
+.badges-wrap{max-width:720px;margin:0 auto;padding:0 1.5rem 4rem;}
+.badges-hero{text-align:center;padding:2rem 0 1.25rem;}
+.xp-total-display{font-family:'Fredoka',sans-serif;font-size:3rem;font-weight:700;color:var(--accent-gold);}
+.xp-level{font-size:.85rem;color:var(--text-2);margin-top:.2rem;}
+.level-bar-wrap{max-width:280px;margin:.75rem auto 0;}
+.level-bar-track{height:8px;background:rgba(255,255,255,.07);border-radius:4px;overflow:hidden;}
+.level-bar-fill{height:100%;background:linear-gradient(90deg,var(--accent-gold),var(--accent-orange));border-radius:4px;transition:width .6s ease;}
+.level-next{font-size:.72rem;color:var(--text-3);margin-top:.4rem;text-align:right;}
+.badges-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.85rem;margin-top:1.5rem;}
+.badge-item{background:var(--bg-card);border:1px solid rgba(255,255,255,.06);border-radius:var(--r-lg);
+  padding:1.25rem 1rem;text-align:center;transition:all .22s;}
+.badge-item.earned{border-color:rgba(255,194,51,.22);background:rgba(255,194,51,.04);}
+.badge-item.earned:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(255,194,51,.12);}
+.badge-item.locked-badge{opacity:.38;filter:grayscale(.8);}
+.badge-emoji-big{font-size:2.4rem;margin-bottom:.5rem;display:block;}
+.badge-name{font-size:.8rem;font-weight:600;margin-bottom:.2rem;}
+.badge-desc{font-size:.7rem;color:var(--text-3);line-height:1.45;}
+.badge-earned-chip{display:inline-block;font-size:.62rem;background:rgba(255,194,51,.12);
+  color:var(--accent-gold);border:1px solid rgba(255,194,51,.2);border-radius:var(--r-full);
+  padding:.1rem .55rem;margin-top:.4rem;font-weight:700;}
+
+/* ════════════════════════════════════════
+   LOCKED MODAL
+════════════════════════════════════════ */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);
+  z-index:500;display:none;align-items:center;justify-content:center;animation:fadeIn .2s ease;}
+.modal-overlay.open{display:flex;}
+.modal-box{background:var(--bg-card);border:1px solid rgba(155,114,248,.28);border-radius:var(--r-xl);
+  padding:2.3rem;max-width:390px;width:93%;text-align:center;animation:fadeUp .3s ease;}
+.modal-icon{font-size:2.7rem;margin-bottom:.85rem;}
+.modal-title{font-family:'Fredoka',sans-serif;font-size:1.6rem;margin-bottom:.6rem;}
+.modal-sub{color:var(--text-2);margin-bottom:.4rem;line-height:1.65;font-size:.9rem;}
+.modal-price{font-family:'Fredoka',sans-serif;font-size:1.85rem;color:var(--accent-gold);margin:1rem 0;}
+.modal-price span{font-size:.8rem;font-family:'DM Sans',sans-serif;font-weight:400;color:var(--text-3);}
+.modal-features{list-style:none;text-align:left;margin:1rem 0 1.4rem;display:flex;flex-direction:column;gap:.42rem;}
+.modal-features li{font-size:.86rem;color:var(--text-2);display:flex;align-items:flex-start;gap:.5rem;}
+.modal-features li::before{content:'✓';color:var(--accent-teal);font-weight:700;font-size:.82rem;flex-shrink:0;margin-top:.05rem;}
+.modal-note{font-size:.7rem;color:var(--text-3);margin-top:.8rem;}
+
+@media(max-width:580px){
+  .age-grid{grid-template-columns:1fr 1fr;}
+  .opt-grid{grid-template-columns:1fr;}
+  .tips-grid{grid-template-columns:1fr;}
+  .features-row{grid-template-columns:1fr 1fr;}
+  .course-hero-inner{flex-direction:column;align-items:flex-start;}
+  .nav-pills .xp-pill{display:none;}
+  .lesson-body{padding:.5rem 1rem 3rem;}
+  .lesson-topbar{padding:.85rem 1rem;}
+  .badges-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr));}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo" onclick="goHome()">
+    <div class="nav-brand">Angel Academy AI</div>
+    <div class="nav-sub">by Angel Intelligence</div>
+  </div>
+  <div class="nav-pills">
+    <div class="streak-pill" onclick="showScreen('badges')">🔥 <span id="nav-streak">0</span> day streak</div>
+    <div class="xp-pill">⭐ <span id="nav-xp">0</span> XP</div>
+    <button class="btn btn-primary" onclick="showModal()">Subscribe £5.99/mo</button>
+  </div>
+</nav>
+
+<!-- ══════════ HOME ══════════ -->
+<div id="screen-home" class="screen active">
+<div class="home-wrap">
+
+  <!-- Streak banner -->
+  <div class="streak-banner">
+    <div class="streak-flame">🔥</div>
+    <div class="streak-info">
+      <div class="streak-title">Keep your streak alive!</div>
+      <div class="streak-sub">Complete any lesson or challenge today to maintain your streak.</div>
+      <div class="streak-days" id="streak-days-row"></div>
+    </div>
+    <div class="streak-count" id="streak-big">0</div>
+  </div>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-badge">✨ Lesson 1 FREE in every age group and module</div>
+    <h1 class="hero-title">Learn AI.<br><span class="gtext">Shape the Future.</span></h1>
+    <p class="hero-sub">Curriculum-designed AI &amp; Prompt Engineering courses for children aged 5–12. Bite-sized, brilliant, and built to keep them coming back.</p>
+    <div class="quick-stats">
+      <div class="qs"><div class="qs-num" style="color:var(--accent-teal)">96</div><div class="qs-label">Total Lessons</div></div>
+      <div class="qs"><div class="qs-num" style="color:var(--accent-purple)">4</div><div class="qs-label">Age Groups</div></div>
+      <div class="qs"><div class="qs-num" style="color:var(--accent-gold)">52</div><div class="qs-label">Weekly Challenges/yr</div></div>
+      <div class="qs"><div class="qs-num" style="color:var(--accent-pink)">£5.99</div><div class="qs-label">Per Month</div></div>
+    </div>
+  </div>
+
+  <!-- Age group cards -->
+  <div class="section-label">Choose Your Age Group</div>
+  <div class="age-grid">
+    <div class="age-card c-pink" onclick="selectAge('5-6')">
+      <span class="age-emoji">🤖</span>
+      <div class="age-range">Ages 5–6</div>
+      <div class="age-course-name">Talking to Robots!</div>
+      <div class="progress-mini"><div class="progress-mini-fill" id="prog-56" style="background:var(--age-56);width:0%"></div></div>
+      <div class="age-meta" id="meta-56">0 / 24 lessons</div>
+      <div class="free-chip">✓ Free Lesson 1</div>
+    </div>
+    <div class="age-card c-teal" onclick="selectAge('7-8')">
+      <span class="age-emoji">🚀</span>
+      <div class="age-range">Ages 7–8</div>
+      <div class="age-course-name">AI Adventures</div>
+      <div class="progress-mini"><div class="progress-mini-fill" id="prog-78" style="background:var(--age-78);width:0%"></div></div>
+      <div class="age-meta" id="meta-78">0 / 24 lessons</div>
+      <div class="free-chip">✓ Free Lesson 1</div>
+    </div>
+    <div class="age-card c-purple" onclick="selectAge('9-10')">
+      <span class="age-emoji">⚡</span>
+      <div class="age-range">Ages 9–10</div>
+      <div class="age-course-name">Prompt Power</div>
+      <div class="progress-mini"><div class="progress-mini-fill" id="prog-910" style="background:var(--age-910);width:0%"></div></div>
+      <div class="age-meta" id="meta-910">0 / 24 lessons</div>
+      <div class="free-chip">✓ Free Lesson 1</div>
+    </div>
+    <div class="age-card c-gold" onclick="selectAge('11-12')">
+      <span class="age-emoji">🔬</span>
+      <div class="age-range">Ages 11–12</div>
+      <div class="age-course-name">AI Engineering Lab</div>
+      <div class="progress-mini"><div class="progress-mini-fill" id="prog-1112" style="background:var(--age-1112);width:0%"></div></div>
+      <div class="age-meta" id="meta-1112">0 / 24 lessons</div>
+      <div class="free-chip">✓ Free Lesson 1</div>
+    </div>
+  </div>
+
+  <!-- Feature cards -->
+  <div class="section-label">Everything Included</div>
+  <div class="features-row">
+    <div class="feat-card" onclick="showScreen('challenge')">
+      <div class="feat-icon">📅</div>
+      <div class="feat-title">Weekly Challenge</div>
+      <div class="feat-desc">A brand new AI challenge every Monday. 10–15 minutes. Always fresh.</div>
+      <div class="feat-badge live">🟢 Live Now</div>
+    </div>
+    <div class="feat-card" onclick="showScreen('practice')">
+      <div class="feat-icon">🧪</div>
+      <div class="feat-title">AI Practice Zone</div>
+      <div class="feat-desc">Type real prompts and get real AI responses. A safe sandbox for young minds.</div>
+      <div class="feat-badge new">★ Unique Feature</div>
+    </div>
+    <div class="feat-card" onclick="showScreen('badges')">
+      <div class="feat-icon">🏆</div>
+      <div class="feat-title">Badges &amp; XP</div>
+      <div class="feat-desc">Earn stars, collect achievement badges and climb the XP leaderboard.</div>
+      <div class="feat-badge new">🌟 Earn Yours</div>
+    </div>
+    <div class="feat-card" onclick="showModal()">
+      <div class="feat-icon">🔓</div>
+      <div class="feat-title">Full Access</div>
+      <div class="feat-desc">96 lessons, Weekly Challenges &amp; AI Zone for just £5.99/month.</div>
+      <div class="feat-badge new">↗ Subscribe</div>
+    </div>
+  </div>
+
+</div>
+</div><!-- /home -->
+
+<!-- ══════════ COURSE DASHBOARD ══════════ -->
+<div id="screen-courses" class="screen">
+<div class="dash-wrap">
+  <button class="back-btn" onclick="goHome()">← All Age Groups</button>
+  <div id="course-dash-content"></div>
+</div>
+</div>
+
+<!-- ══════════ LESSON PLAYER ══════════ -->
+<div id="screen-lesson" class="screen">
+  <div class="lesson-topbar">
+    <button class="back-btn" style="padding:0;margin:0;white-space:nowrap;" onclick="showScreen('courses')">← Back</button>
+    <div class="lesson-title-bar">
+      <div class="lesson-name-small" id="lesson-name-bar">Lesson</div>
+      <div class="l-prog-bar"><div class="l-prog-fill" id="lesson-prog-fill"></div></div>
+    </div>
+    <div class="slide-ctr" id="slide-ctr-label">1/4</div>
+  </div>
+  <div class="lesson-body" id="lesson-body-el"></div>
+</div>
+
+<!-- ══════════ QUIZ ══════════ -->
+<div id="screen-quiz" class="screen">
+  <div class="quiz-wrap" id="quiz-el"></div>
+</div>
+
+<!-- ══════════ COMPLETE ══════════ -->
+<div id="screen-complete" class="screen">
+  <div class="complete-wrap" id="complete-el"></div>
+</div>
+
+<!-- ══════════ WEEKLY CHALLENGE ══════════ -->
+<div id="screen-challenge" class="screen">
+<div class="challenge-wrap">
+  <button class="back-btn" onclick="goHome()">← Home</button>
+  <div class="wc-hero">
+    <span class="wc-emoji">🌍</span>
+    <div class="wc-week">Week 1 Challenge</div>
+    <div class="wc-title">AI Around the World</div>
+    <div class="wc-desc">This week: Discover how AI is being used in different countries and write a prompt that helps someone in another country solve a problem they face every day.</div>
+    <div class="countdown-row" id="countdown-row"></div>
+    <button class="btn btn-primary btn-lg" onclick="document.querySelector('.challenge-steps').scrollIntoView({behavior:'smooth'})">Start This Week's Challenge →</button>
+  </div>
+  <div class="challenge-steps">
+    <div class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <div class="step-title">Read the Scenario</div>
+        <div class="step-sub">A farmer in Kenya needs help knowing when to water their crops. They don't have reliable internet but do have a basic phone. How could AI help them?</div>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <div class="step-title">Think About It</div>
+        <div class="step-sub">What information would an AI need to help this farmer? What would the ideal solution look like? Think about the constraints they face.</div>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <div class="step-title">Write Your AI Prompt</div>
+        <div class="step-sub">Write a prompt below that you would give to an AI to help solve this farmer's problem. Remember your CRST framework — Context, Role, Specificity, Tone!</div>
+      </div>
+    </div>
+  </div>
+  <div class="challenge-input-box">
+    <div style="font-family:'Fredoka',sans-serif;font-size:1rem;margin-bottom:.7rem;color:var(--accent-teal);">✍️ Write Your Challenge Prompt</div>
+    <textarea class="challenge-textarea" id="challenge-ta" placeholder="Write your prompt here... Think about who the AI should be, what it needs to know, and how detailed the answer should be."></textarea>
+    <div style="font-size:.75rem;color:var(--text-3);margin:.5rem 0;">Aim for at least 3–4 sentences. The more detail, the better your result!</div>
+    <div class="challenge-submit-row">
+      <button class="btn btn-teal btn-lg" onclick="submitChallenge()">Submit &amp; Earn 50 XP →</button>
+    </div>
+  </div>
+  <div id="challenge-result" style="display:none;margin-top:1rem;"></div>
+</div>
+</div>
+
+<!-- ══════════ AI PRACTICE ZONE ══════════ -->
+<div id="screen-practice" class="screen">
+<div class="practice-wrap">
+  <button class="back-btn" onclick="goHome()">← Home</button>
+  <div class="practice-hero">
+    <h2>🧪 AI Practice Zone</h2>
+    <p>Type a real prompt and get a real AI response. Practice makes perfect — try the templates below or write your own!</p>
+  </div>
+  <div class="age-selector-row">
+    <button class="age-sel-btn active" data-pmode="5-6" onclick="setPracticeMode('5-6',this)">Ages 5–6</button>
+    <button class="age-sel-btn" data-pmode="7-8" onclick="setPracticeMode('7-8',this)">Ages 7–8</button>
+    <button class="age-sel-btn" data-pmode="9-10" onclick="setPracticeMode('9-10',this)">Ages 9–10</button>
+    <button class="age-sel-btn" data-pmode="11-12" onclick="setPracticeMode('11-12',this)">Ages 11–12</button>
+  </div>
+  <div class="prompt-templates" id="template-grid"></div>
+  <div class="practice-input-area">
+    <div class="practice-label-bar">
+      <span>✏️ Your Prompt</span>
+      <span id="practice-mode-label" style="color:var(--accent-teal);">Ages 5–6 Mode</span>
+    </div>
+    <textarea class="practice-ta" id="practice-ta" rows="3" placeholder="Type your prompt here..."></textarea>
+    <div class="practice-actions">
+      <div class="char-count"><span id="char-count">0</span> / 500 characters</div>
+      <button class="btn btn-teal" onclick="runPractice()">Ask AI ✨</button>
+    </div>
+  </div>
+  <div class="ai-response-area" id="ai-resp-area">
+    <div class="ai-response-label">🤖 Angel AI says...</div>
+    <div class="ai-thinking"><div class="ai-dots"><span></span><span></span><span></span></div><span>Ready for your first prompt!</span></div>
+  </div>
+  <div class="prompt-tips">
+    <div class="tips-title">💡 Prompt Tips</div>
+    <div class="tips-grid" id="tips-grid"></div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════ BADGES ══════════ -->
+<div id="screen-badges" class="screen">
+<div class="badges-wrap">
+  <button class="back-btn" onclick="goHome()">← Home</button>
+  <div class="badges-hero">
+    <div style="font-size:.8rem;color:var(--text-3);margin-bottom:.3rem;">Your Total XP</div>
+    <div class="xp-total-display" id="badge-xp-total">0</div>
+    <div class="xp-level" id="xp-level-label">Level 1 — Curious Beginner</div>
+    <div class="level-bar-wrap">
+      <div class="level-bar-track"><div class="level-bar-fill" id="level-bar-fill" style="width:0%"></div></div>
+      <div class="level-next" id="level-next-label">0 / 100 XP to Level 2</div>
+    </div>
+  </div>
+  <div class="section-label">Your Achievement Badges</div>
+  <div class="badges-grid" id="badges-grid-el"></div>
+</div>
+</div>
+
+<!-- ══════════ LOCKED MODAL ══════════ -->
+<div class="modal-overlay" id="modal-overlay" onclick="handleModalClick(event)">
+  <div class="modal-box">
+    <div class="modal-icon">🔓</div>
+    <div class="modal-title">Unlock Everything</div>
+    <p class="modal-sub">Get full access to all 96 lessons, Weekly Challenges, AI Practice Zone, and badges.</p>
+    <div class="modal-price">£5.99 <span>/ month per child</span></div>
+    <ul class="modal-features">
+      <li>96 lessons across 4 age groups (4 modules each)</li>
+      <li>Weekly Challenge — new every Monday</li>
+      <li>AI Practice Zone — type real prompts safely</li>
+      <li>Streak system, XP, badges &amp; certificates</li>
+      <li>Age-appropriate: 8–25 min lessons by age group</li>
+      <li>New courses added — all included in subscription</li>
+      <li>Cancel anytime, no contract, no hidden fees</li>
+    </ul>
+    <button class="btn btn-primary btn-block btn-lg" onclick="closeModal()">Subscribe Now — £5.99/mo →</button>
+    <button class="btn btn-ghost btn-block" style="margin-top:.55rem;" onclick="closeModal()">Maybe Later</button>
+    <div class="modal-note">Secure payment via Stripe · Cancel anytime · All age groups included</div>
+  </div>
+</div>
+
+</div><!-- /app -->
+
+<script>
+// ════════════════════════════════
+// DATA — COURSE STRUCTURE
+// ════════════════════════════════
+const AGES = {
+  '5-6':{
+    label:'Ages 5–6', emoji:'🤖', color:'var(--age-56)', cls:'c-pink',
+    bg:'rgba(255,111,173,.1)', border:'rgba(255,111,173,.22)',
+    title:'Talking to Robots!',
+    desc:'Meet Sparky the Robot and discover AI through stories, games, and silly challenges. Short, joyful lessons designed for young explorers.',
+    maxMins:10,
+    modules:[
+      {title:'What Is AI?', icon:'🌟', lessons:[
+        {t:'Meet Sparky — What Is a Robot?', min:8, free:true},
+        {t:'AI Listens to Instructions', min:9},
+        {t:'Be a Robot Game', min:8},
+        {t:'Robots That Help Us', min:8},
+        {t:'Kind Instructions Win!', min:9},
+        {t:'My First AI Conversation', min:10}
+      ]},
+      {title:'Giving Instructions', icon:'📝', lessons:[
+        {t:'Clear vs. Confusing Instructions', min:9},
+        {t:'Step-by-Step Thinking', min:8},
+        {t:'The Magic Word: "Please Be Specific"', min:9},
+        {t:'Instruction Obstacle Course', min:10},
+        {t:'Instructions That Make Pictures', min:9},
+        {t:'Robot Dance Instructions', min:8}
+      ]},
+      {title:'AI Learns from Us', icon:'🧠', lessons:[
+        {t:'How Sparky Got So Smart', min:9},
+        {t:'Showing AI Right from Wrong', min:8},
+        {t:'AI Makes Mistakes Too!', min:9},
+        {t:'Teaching by Example', min:10},
+        {t:'When AI Gets Confused', min:8},
+        {t:'Helping AI Be Better', min:9}
+      ]},
+      {title:'AI in My World', icon:'🌍', lessons:[
+        {t:'AI at Home', min:8},
+        {t:'AI at School', min:9},
+        {t:'AI and My Favourite Things', min:8},
+        {t:'Future Jobs with AI', min:10},
+        {t:'Being a Responsible AI User', min:9},
+        {t:'My AI Adventure Certificate!', min:10}
+      ]}
+    ]
+  },
+  '7-8':{
+    label:'Ages 7–8', emoji:'🚀', color:'var(--age-78)', cls:'c-teal',
+    bg:'rgba(15,212,160,.08)', border:'rgba(15,212,160,.22)',
+    title:'AI Adventures',
+    desc:'Embark on AI missions! Discover how AI really works, write clever instructions, and use AI to create amazing stories, art ideas, and inventions.',
+    maxMins:14,
+    modules:[
+      {title:'Understanding AI', icon:'🧩', lessons:[
+        {t:'What Is AI Really?', min:11, free:true},
+        {t:'How AI Learns from Data', min:12},
+        {t:'Neural Networks: The AI Brain', min:11},
+        {t:'AI vs. Human Thinking', min:12},
+        {t:'Types of AI Around You', min:11},
+        {t:'The History of AI', min:13}
+      ]},
+      {title:'Writing Great Prompts', icon:'✍️', lessons:[
+        {t:'What Is a Prompt?', min:10},
+        {t:'Specific vs. Vague Instructions', min:12},
+        {t:'Adding Context to Prompts', min:12},
+        {t:'Prompts That Tell Stories', min:13},
+        {t:'Prompts for Art and Creativity', min:12},
+        {t:'Fixing Bad Prompts', min:11}
+      ]},
+      {title:'AI as a Creative Tool', icon:'🎨', lessons:[
+        {t:'AI Storyteller', min:13},
+        {t:'AI Inventor', min:12},
+        {t:'AI World Builder', min:14},
+        {t:'AI Poem Machine', min:11},
+        {t:'Prompts That Solve Problems', min:13},
+        {t:'AI Game Designer', min:14}
+      ]},
+      {title:'Thinking Critically About AI', icon:'🔍', lessons:[
+        {t:'When AI Gets It Wrong', min:12},
+        {t:'Is the Answer Always Right?', min:11},
+        {t:'AI and Fairness', min:12},
+        {t:'The Human Behind the AI', min:11},
+        {t:'Being a Smart AI User', min:12},
+        {t:'My AI Adventures Certificate!', min:14}
+      ]}
+    ]
+  },
+  '9-10':{
+    label:'Ages 9–10', emoji:'⚡', color:'var(--age-910)', cls:'c-purple',
+    bg:'rgba(155,114,248,.09)', border:'rgba(155,114,248,.22)',
+    title:'Prompt Power',
+    desc:'Master the art of talking to AI. Learn proven frameworks, advanced techniques, and real-world applications that put you miles ahead of your peers.',
+    maxMins:18,
+    modules:[
+      {title:'Prompt Engineering Foundations', icon:'📐', lessons:[
+        {t:'Prompt Engineering: What and Why', min:13, free:true},
+        {t:'The CRST Framework Explained', min:14},
+        {t:'Context: Setting the Scene', min:14},
+        {t:'Role: Giving AI a Persona', min:15},
+        {t:'Specificity: The Detail That Wins', min:14},
+        {t:'Tone: Choosing How AI Sounds', min:13}
+      ]},
+      {title:'Advanced Techniques', icon:'⚡', lessons:[
+        {t:'Iterative Prompting', min:15},
+        {t:'Chaining Prompts Together', min:16},
+        {t:'Negative Prompting (What NOT to Do)', min:14},
+        {t:'Prompts That Use Examples', min:15},
+        {t:'Constraints and Word Limits', min:14},
+        {t:'Format Control Techniques', min:15}
+      ]},
+      {title:'Real-World Applications', icon:'🌐', lessons:[
+        {t:'Prompts for Research and Learning', min:15},
+        {t:'Prompts for Creative Writing', min:16},
+        {t:'Prompts for Problem Solving', min:16},
+        {t:'Building a Prompt Library', min:17},
+        {t:'AI for Presentations', min:15},
+        {t:'Prompts for Coding Help', min:16}
+      ]},
+      {title:'Thinking Like an AI Engineer', icon:'🔧', lessons:[
+        {t:'How AI Models Are Built', min:16},
+        {t:'Understanding AI Limitations', min:15},
+        {t:'AI Ethics: Big Questions', min:16},
+        {t:'The Prompt Engineer\'s Mindset', min:17},
+        {t:'My Prompt Portfolio', min:17},
+        {t:'Prompt Power Certificate!', min:18}
+      ]}
+    ]
+  },
+  '11-12':{
+    label:'Ages 11–12', emoji:'🔬', color:'var(--age-1112)', cls:'c-gold',
+    bg:'rgba(255,194,51,.07)', border:'rgba(255,194,51,.2)',
+    title:'AI Engineering Lab',
+    desc:'Go deep. Master advanced prompt architecture, explore AI ethics and bias, build real AI tools, and position yourself at the frontier of the most transformative technology ever created.',
+    maxMins:25,
+    modules:[
+      {title:'Advanced Prompt Architecture', icon:'🏗️', lessons:[
+        {t:'Professional Prompt Architecture', min:15, free:true},
+        {t:'System Prompts and Personas', min:16},
+        {t:'Zero-Shot vs. Few-Shot Prompting', min:16},
+        {t:'Chain-of-Thought Reasoning', min:17},
+        {t:'Tree-of-Thought Techniques', min:17},
+        {t:'Prompt Testing and Iteration', min:18}
+      ]},
+      {title:'AI Systems and Models', icon:'🧬', lessons:[
+        {t:'How Large Language Models Work', min:18},
+        {t:'Training Data and Bias', min:17},
+        {t:'Model Parameters Explained', min:18},
+        {t:'Different Models, Different Strengths', min:17},
+        {t:'Fine-Tuning and RAG Explained', min:19},
+        {t:'The Future of AI Models', min:18}
+      ]},
+      {title:'Building with AI', icon:'🛠️', lessons:[
+        {t:'AI Workflow Design', min:20},
+        {t:'Building a Custom AI Chatbot (Concept)', min:22},
+        {t:'AI-Powered Research Tool', min:21},
+        {t:'Automating Tasks with AI', min:22},
+        {t:'Evaluating AI Output Quality', min:20},
+        {t:'Your First AI Project', min:24}
+      ]},
+      {title:'Ethics, Careers and the Future', icon:'🌐', lessons:[
+        {t:'AI Bias: Deep Dive', min:20},
+        {t:'The Ethics of Generative AI', min:21},
+        {t:'AI Regulation and Society', min:20},
+        {t:'Careers in AI: What\'s Available', min:19},
+        {t:'How to Keep Learning: Resources', min:18},
+        {t:'AI Engineering Lab Certificate!', min:25}
+      ]}
+    ]
+  }
+};
+
+// Free lesson content (Age 5-6 only for demo — others follow same structure)
+const FREE_LESSON = {
+  slides:[
+    {
+      tag:'👋 Welcome!', tagBg:'rgba(255,111,173,.14)', tagColor:'#FF6FAD',
+      heading:'Meet Sparky the Robot! 🤖',
+      body:'Hello, curious explorer! Today we\'re going to meet a very special friend — a robot called Sparky! Sparky can listen, think, and talk. Robots like Sparky are part of something called Artificial Intelligence — or AI for short.',
+      char:{emoji:'🤖', bg:'rgba(255,111,173,.18)', name:'Sparky the Robot',
+        say:'Hi there! I\'m SO excited to meet you! I\'m Sparky, and I\'m a robot powered by AI. I\'ve been looking forward to being your learning buddy today! 🌟'}
+    },
+    {
+      tag:'🌍 Explore', tagBg:'rgba(255,194,51,.11)', tagColor:'#FFC233',
+      heading:'What Can AI Do?',
+      body:'AI can do incredible things! It can write stories, answer questions, create pictures, and even help scientists find cures for diseases. But the really exciting thing? YOU can learn to talk to AI and get it to help you too!',
+      funFact:'Did you know? An AI called AlphaFold figured out the shapes of almost all proteins known to science — a problem that would have taken human scientists thousands of years! 🧬',
+      int:{title:'🎮 Quick Quiz!',q:'Which of these can AI actually do right now?',
+        opts:['Write a story for you 📖','Eat a sandwich 🥪','Help doctors spot diseases 🏥','Feel emotions like happiness 😊'],
+        c:0, fb:'Correct! AI can write stories — and also help doctors (option 3 is true too!). But AI can\'t eat food or genuinely feel emotions. Those are very human things! 🌟'}
+    },
+    {
+      tag:'🧠 Big Idea', tagBg:'rgba(155,114,248,.11)', tagColor:'#9B72F8',
+      heading:'AI Learns By Practising — Just Like You!',
+      body:'When you learned to walk, you fell over many times and got better with practice. AI learns the same way — by seeing millions of examples and practising over and over until it gets things right.',
+      highlight:'You learned to walk by:\n  Trying → Falling → Trying Again ✅\n\nAI learned to talk by:\n  Reading millions of books and conversations ✅\n  Practising billions of times ✅\n  Getting feedback on mistakes ✅',
+      char:{emoji:'🤖', bg:'rgba(155,114,248,.18)', name:'Sparky the Robot',
+        say:'I read more books than ALL the libraries in the UK combined — before I was even switched on! That\'s how I learned to talk to you today. 📚🤩'}
+    },
+    {
+      tag:'🎯 Quiz Time!', tagBg:'rgba(15,212,160,.11)', tagColor:'#0FD4A0',
+      heading:'You\'re Ready! Let\'s Quiz! 🌟',
+      body:'Amazing work! You now know what AI is, what it can do, and how it learns. Let\'s lock in your knowledge with 3 quick questions. You\'ve absolutely got this — let\'s go!',
+      isLast:true
+    }
+  ],
+  quiz:[
+    {q:'What does AI stand for?',a:['Amazing Internet','Artificial Intelligence','Animal Instructions','Automatic Invention'],c:1},
+    {q:'How does AI get smarter over time?',a:['By sleeping like we do','By eating electricity','By practising and learning from millions of examples','By watching TV all day'],c:2},
+    {q:'Which of these is something AI CAN do today?',a:['Feel genuinely happy','Write a poem for you','Eat your lunch','Dream while switched off'],c:1}
+  ]
+};
+
+// ════════════════════════════════
+// STATE
+// ════════════════════════════════
+let currentAge = null;
+let currentSlideIdx = 0;
+let currentQuizIdx = 0;
+let quizResults = [];
+let practiceMode = '5-6';
+
+let state = JSON.parse(localStorage.getItem('aa_state') || JSON.stringify({
+  xp:0, streak:0, lastActive:null, done:{}, badges:[]
+}));
+
+function saveState(){localStorage.setItem('aa_state',JSON.stringify(state));}
+
+// ════════════════════════════════
+// SCREENS
+// ════════════════════════════════
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('screen-'+id).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function goHome(){currentAge=null;refreshHome();showScreen('home');}
+
+// ════════════════════════════════
+// HOME REFRESH
+// ════════════════════════════════
+function refreshHome(){
+  document.getElementById('nav-xp').textContent=state.xp;
+  document.getElementById('nav-streak').textContent=state.streak;
+  document.getElementById('streak-big').textContent=state.streak;
+  updateStreakDays();
+  updateProgressMinis();
+  updateStreak();
+}
+
+function updateStreak(){
+  const today=new Date().toDateString();
+  if(state.lastActive!==today){
+    const yesterday=new Date(Date.now()-86400000).toDateString();
+    if(state.lastActive!==yesterday&&state.lastActive!==null) state.streak=0;
+  }
+}
+
+function updateStreakDays(){
+  const days=['M','T','W','T','F','S','S'];
+  const row=document.getElementById('streak-days-row');
+  const today=new Date().getDay();
+  row.innerHTML=days.map((d,i)=>{
+    const done=state.streak>0&&i<=(today===0?6:today-1);
+    const isToday=i===(today===0?6:today-1);
+    return `<div class="sday ${isToday?'sday-today':done?'sday-done':''}">${d}</div>`;
+  }).join('');
+}
+
+function updateProgressMinis(){
+  const keys=['5-6','7-8','9-10','11-12'];
+  const ids=['56','78','910','1112'];
+  keys.forEach((k,i)=>{
+    const done=Object.keys(state.done).filter(d=>d.startsWith(k+'_')).length;
+    const pct=Math.round((done/24)*100);
+    const fill=document.getElementById('prog-'+ids[i]);
+    const meta=document.getElementById('meta-'+ids[i]);
+    if(fill) fill.style.width=pct+'%';
+    if(meta) meta.textContent=done+' / 24 lessons';
+  });
+}
+
+// ════════════════════════════════
+// AGE SELECTION → COURSE DASHBOARD
+// ════════════════════════════════
+function selectAge(age){
+  currentAge=age;
+  buildDashboard(age);
+  showScreen('courses');
+}
+
+function buildDashboard(age){
+  const A=AGES[age];
+  const totalDone=Object.keys(state.done).filter(k=>k.startsWith(age+'_')).length;
+  const pct=Math.round((totalDone/24)*100);
+
+  let html=`
+    <div class="course-hero" style="border-color:${A.border};">
+      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:${A.color};border-radius:16px 16px 0 0;"></div>
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 15% 50%,${A.bg} 0%,transparent 65%);border-radius:var(--r-xl);pointer-events:none;"></div>
+      <div class="course-hero-inner" style="position:relative;">
+        <div class="course-big-emoji">${A.emoji}</div>
+        <div class="course-info">
+          <div class="course-age-chip" style="background:${A.bg};color:${A.color};border:1px solid ${A.border};">${A.label}</div>
+          <div class="course-title">${A.title}</div>
+          <div class="course-desc">${A.desc}</div>
+          <div class="course-stats-row">
+            <div class="c-stat"><div class="c-stat-num" style="color:${A.color}">24</div><div class="c-stat-label">Lessons</div></div>
+            <div class="c-stat"><div class="c-stat-num">${A.maxMins}m</div><div class="c-stat-label">Max Length</div></div>
+            <div class="c-stat"><div class="c-stat-num">${totalDone}</div><div class="c-stat-label">Completed</div></div>
+            <div class="c-stat"><div class="c-stat-num">${pct}%</div><div class="c-stat-label">Progress</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="overall-prog">
+      <div class="prog-label-row">
+        <span class="prog-label">Overall Progress</span>
+        <span class="prog-pct" style="color:${A.color}">${totalDone}/24 lessons</span>
+      </div>
+      <div class="prog-bar-track"><div class="prog-bar-fill" style="width:${pct}%;background:${A.color};"></div></div>
+    </div>
+    <div class="unlock-banner">
+      <div class="ub-left">
+        <div class="ub-title">🔓 Unlock All 4 Modules</div>
+        <div class="ub-sub">Module 1, Lesson 1 is free. Subscribe to access everything.</div>
+      </div>
+      <div class="ub-right">
+        <div class="price-tag">£5.99 <span>/ mo</span></div>
+        <button class="btn btn-primary" onclick="showModal()">Subscribe →</button>
+      </div>
+    </div>
+  `;
+
+  A.modules.forEach((mod,mi)=>{
+    const modDone=mod.lessons.filter((_,li)=>state.done[age+'_'+mi+'_'+li]).length;
+    const isOpen=mi===0;
+    const chipBg=modDone===mod.lessons.length?'rgba(15,212,160,.12)':'rgba(255,255,255,.05)';
+    const chipColor=modDone===mod.lessons.length?'var(--accent-teal)':'var(--text-3)';
+    const chipBorder=modDone===mod.lessons.length?'rgba(15,212,160,.25)':'rgba(255,255,255,.08)';
+    const numBg=mi===0?A.bg:'rgba(255,255,255,.05)';
+    const numColor=mi===0?A.color:'var(--text-3)';
+
+    html+=`
+      <div class="module-block">
+        <div class="module-header" onclick="toggleModule(${mi})">
+          <div class="module-num" style="background:${numBg};color:${numColor};border:1px solid ${mi===0?A.border:'rgba(255,255,255,.07)'};">${mod.icon}</div>
+          <div class="module-title-text">Module ${mi+1}: ${mod.title}</div>
+          <div class="module-prog-chip" style="background:${chipBg};color:${chipColor};border:1px solid ${chipBorder};">${modDone}/${mod.lessons.length}</div>
+          <div class="module-chevron ${isOpen?'open'}" id="chev-${mi}">▼</div>
+        </div>
+        <div class="lesson-rows" id="mod-rows-${mi}" style="${isOpen?'max-height:9999px;':'max-height:0;'}">
+    `;
+
+    mod.lessons.forEach((L,li)=>{
+      const key=age+'_'+mi+'_'+li;
+      const isFree=L.free===true;
+      const isDone=!!state.done[key];
+      const isLocked=!isFree&&!isDone;
+      html+=`
+        <div class="l-row ${isDone?'l-done':''} ${isLocked?'l-locked':''}"
+             onclick="${isLocked?'showModal()':'startLesson('+mi+','+li+')'}">
+          <div class="l-num ${isDone?'l-num-done':isLocked?'l-num-locked':'l-num-free'}">
+            ${isDone?'✓':isLocked?'🔒':mi*6+li+1}
+          </div>
+          <div class="l-info">
+            <div class="l-title">${L.t}</div>
+            <div class="l-meta">
+              <span>~${L.min} min</span>
+              ${isFree?'<span class="badge-free">FREE</span>':'<span class="badge-prem">PREMIUM</span>'}
+              ${isDone?'<span class="l-stars">⭐⭐⭐</span>':''}
+            </div>
+          </div>
+          <div class="l-arrow">${isDone?'✅':isLocked?'':'→'}</div>
+        </div>
+      `;
+    });
+
+    html+=`</div></div>`;
+  });
+
+  document.getElementById('course-dash-content').innerHTML=html;
+}
+
+function toggleModule(mi){
+  const rows=document.getElementById('mod-rows-'+mi);
+  const chev=document.getElementById('chev-'+mi);
+  const isOpen=rows.style.maxHeight!=='0px'&&rows.style.maxHeight!=='';
+  rows.style.maxHeight=isOpen?'0':'9999px';
+  chev.classList.toggle('open',!isOpen);
+}
+
+// ════════════════════════════════
+// LESSON PLAYER
+// ════════════════════════════════
+function startLesson(mi,li){
+  if(mi!==0||li!==0){showModal();return;}
+  currentSlideIdx=0;
+  document.getElementById('lesson-name-bar').textContent=AGES[currentAge].modules[0].lessons[0].t;
+  renderSlide();
+  showScreen('lesson');
+  markActivity();
+}
+
+function renderSlide(){
+  const slides=FREE_LESSON.slides;
+  const S=slides[currentSlideIdx];
+  const total=slides.length;
+  const pct=total>1?Math.round((currentSlideIdx/(total-1))*100):100;
+  const A=AGES[currentAge];
+
+  document.getElementById('lesson-prog-fill').style.cssText=`width:${pct}%;background:${A.color};`;
+  document.getElementById('slide-ctr-label').textContent=(currentSlideIdx+1)+'/'+total;
+
+  let h=`<div class="slide s-active">`;
+  h+=`<div class="s-tag" style="background:${S.tagBg};color:${S.tagColor};">${S.tag}</div>`;
+  h+=`<h2 class="s-heading">${S.heading}</h2>`;
+  if(S.body) h+=`<p class="s-body">${S.body}</p>`;
+
+  if(S.char) h+=`
+    <div class="char-box">
+      <div class="char-av" style="background:${S.char.bg};">${S.char.emoji}</div>
+      <div>
+        <div class="char-name-label">${S.char.name}</div>
+        <div class="speech">${S.char.say}</div>
+      </div>
+    </div>`;
+
+  if(S.funFact) h+=`
+    <div class="fun-fact">
+      <div class="ff-label">💡 Fun Fact</div>
+      <p>${S.funFact}</p>
+    </div>`;
+
+  if(S.highlight) h+=`
+    <div class="hl-box"><pre>${S.highlight}</pre></div>`;
+
+  if(S.int){const I=S.int;
+    h+=`<div class="int-box">
+      <div class="int-title">${I.title}</div>
+      <p class="int-q">${I.q}</p>
+      <div class="opt-grid">
+        ${I.opts.map((o,i)=>`<button class="opt-btn" id="iopt-${i}" onclick="pickOpt(${i},${I.c},'${I.fb.replace(/'/g,"\\'")}' )">${o}</button>`).join('')}
+      </div>
+      <div class="int-fb" id="int-fb-el"></div>
+    </div>`;}
+
+  const isLast=currentSlideIdx===total-1;
+  h+=`<div class="slide-nav">
+    <button class="btn btn-ghost" onclick="prevSlide()" ${currentSlideIdx===0?'style="opacity:0;pointer-events:none;"':''}>← Back</button>
+    <div class="s-dots">${slides.map((_,i)=>`<div class="s-dot ${i===currentSlideIdx?'d-cur':i<currentSlideIdx?'d-done':''}"></div>`).join('')}</div>
+    <button class="btn btn-teal" onclick="${isLast?'startQuiz()':'nextSlide()'}">
+      ${isLast?'🎯 Take Quiz':'Next →'}
+    </button>
+  </div></div>`;
+
+  document.getElementById('lesson-body-el').innerHTML=h;
+}
+
+function pickOpt(idx,correct,fb){
+  const ok=idx===correct;
+  document.getElementById('iopt-'+idx).classList.add(ok?'opt-c':'opt-w');
+  if(!ok) document.getElementById('iopt-'+correct).classList.add('opt-c');
+  document.querySelectorAll('.opt-btn').forEach(b=>b.disabled=true);
+  const el=document.getElementById('int-fb-el');
+  el.textContent=fb; el.className='int-fb fb-ok';
+  if(ok){state.xp+=5;saveState();document.getElementById('nav-xp').textContent=state.xp;}
+}
+function nextSlide(){if(currentSlideIdx<FREE_LESSON.slides.length-1){currentSlideIdx++;renderSlide();}}
+function prevSlide(){if(currentSlideIdx>0){currentSlideIdx--;renderSlide();}}
+
+// ════════════════════════════════
+// QUIZ
+// ════════════════════════════════
+function startQuiz(){currentQuizIdx=0;quizResults=[];renderQuestion();showScreen('quiz');}
+
+function renderQuestion(){
+  const Qs=FREE_LESSON.quiz;
+  const Q=Qs[currentQuizIdx];
+  const A=AGES[currentAge];
+  const letters=['A','B','C','D'];
+  const h=`
+    <div class="q-top">
+      <div class="q-label" style="color:${A.color}">🎯 Knowledge Check</div>
+      <div class="q-dots">${Qs.map((_,i)=>`<div class="qd ${i===currentQuizIdx?'qd-cur':i<currentQuizIdx?'qd-done':''}"></div>`).join('')}</div>
+      <div class="q-count">Question ${currentQuizIdx+1} of ${Qs.length}</div>
+    </div>
+    <div class="q-text">${Q.q}</div>
+    <div class="ans-grid" id="ans-grid">
+      ${Q.a.map((a,i)=>`
+        <button class="ans-btn" id="ab-${i}" onclick="pickAns(${i})">
+          <div class="ans-letter">${letters[i]}</div><span>${a}</span>
+        </button>`).join('')}
+    </div>
+    <div class="q-fb" id="q-fb-el"></div>
+    <div class="q-next-row">
+      <button class="btn btn-teal btn-lg" id="q-next-btn" style="display:none;" onclick="advanceQuiz()">
+        ${currentQuizIdx===Qs.length-1?'🏆 See Results':'Next Question →'}
+      </button>
+    </div>`;
+  document.getElementById('quiz-el').innerHTML=h;
+}
+
+function pickAns(idx){
+  const Q=FREE_LESSON.quiz[currentQuizIdx];
+  const ok=idx===Q.c;
+  document.querySelectorAll('.ans-btn').forEach((b,i)=>{
+    b.disabled=true;
+    if(i===Q.c) b.classList.add('ans-c');
+    else if(i===idx&&!ok) b.classList.add('ans-w');
+  });
+  quizResults.push(ok);
+  const fb=document.getElementById('q-fb-el');
+  fb.textContent=ok?'✅ Correct! Great work!':'❌ Not quite — the correct answer is highlighted above.';
+  fb.className='q-fb '+(ok?'qf-ok':'qf-no');
+  if(ok){state.xp+=10;saveState();document.getElementById('nav-xp').textContent=state.xp;}
+  document.getElementById('q-next-btn').style.display='inline-flex';
+}
+function advanceQuiz(){currentQuizIdx++;if(currentQuizIdx<FREE_LESSON.quiz.length) renderQuestion(); else showComplete();}
+
+// ════════════════════════════════
+// COMPLETE
+// ════════════════════════════════
+function showComplete(){
+  const correct=quizResults.filter(Boolean).length;
+  const total=quizResults.length;
+  const pct=Math.round((correct/total)*100);
+  const stars=pct===100?3:pct>=67?2:1;
+  const bonusXP=stars*25;
+  state.xp+=bonusXP;
+  state.done[currentAge+'_0_0']=true;
+  markActivity();
+  checkBadges();
+  saveState();
+
+  const A=AGES[currentAge];
+  const nextLesson=A.modules[0].lessons[1];
+  const M={3:{e:'🏆',t:'Perfect Score!',s:'All '+total+' correct. You\'re a natural!'},
+    2:{e:'🌟',t:'Great Work!',s:correct+' out of '+total+' correct. Keep it up!'},
+    1:{e:'💪',t:'Lesson Complete!',s:'You finished! Practice makes perfect.'}}[stars];
+
+  document.getElementById('complete-el').innerHTML=`
+    <span class="complete-big">${M.e}</span>
+    <div class="complete-title">${M.t}</div>
+    <p class="complete-sub">${M.s}</p>
+    <div class="stars-row">
+      ${[0,1,2].map(i=>`<span class="star-item">${i<stars?'⭐':'☆'}</span>`).join('')}
+    </div>
+    <div class="score-card">
+      <div><div class="sc-label">Score</div><div class="sc-val" style="color:${A.color}">${correct}/${total}</div></div>
+      <div><div class="sc-label">Accuracy</div><div class="sc-val">${pct}%</div></div>
+      <div><div class="sc-label">XP Earned</div><div class="sc-val" style="color:var(--accent-gold)">+${bonusXP}</div></div>
+    </div>
+    <div class="xp-chip">⭐ Total XP: ${state.xp}</div>
+    <div class="next-nudge">
+      <div class="nn-icon">🔓</div>
+      <div>
+        <div class="nn-label">Next up</div>
+        <div class="nn-title">${nextLesson.t} (~${nextLesson.min} min) — Subscribe to unlock</div>
+      </div>
+    </div>
+    <div class="complete-ctas">
+      <button class="btn btn-primary btn-block btn-lg" onclick="showModal()">🔓 Unlock All 24 Lessons — £5.99/mo</button>
+      <button class="btn btn-ghost btn-block" style="padding:.72rem;" onclick="showScreen('challenge')">Try This Week's Challenge →</button>
+      <button class="btn btn-ghost btn-block" style="padding:.72rem;" onclick="goHome()">Explore Other Age Groups</button>
+    </div>`;
+
+  document.getElementById('nav-xp').textContent=state.xp;
+  showScreen('complete');
+  updateProgressMinis();
+}
+
+// ════════════════════════════════
+// STREAK & ACTIVITY
+// ════════════════════════════════
+function markActivity(){
+  const today=new Date().toDateString();
+  if(state.lastActive!==today){
+    const yesterday=new Date(Date.now()-86400000).toDateString();
+    state.streak=state.lastActive===yesterday?state.streak+1:1;
+    state.lastActive=today;
+  }
+  document.getElementById('nav-streak').textContent=state.streak;
+  document.getElementById('streak-big').textContent=state.streak;
+  saveState();
+}
+
+// ════════════════════════════════
+// WEEKLY CHALLENGE
+// ════════════════════════════════
+function buildCountdown(){
+  const now=new Date();
+  const nextMon=new Date(now);
+  nextMon.setDate(now.getDate()+((1+7-now.getDay())%7||7));
+  nextMon.setHours(0,0,0,0);
+  const diff=nextMon-now;
+  const d=Math.floor(diff/86400000);
+  const h=Math.floor((diff%86400000)/3600000);
+  const m=Math.floor((diff%3600000)/60000);
+  const s=Math.floor((diff%60000)/1000);
+  document.getElementById('countdown-row').innerHTML=
+    `<div class="cd-item"><div class="cd-num">${d}</div><div class="cd-label">Days</div></div>
+     <div class="cd-item"><div class="cd-num">${h}</div><div class="cd-label">Hours</div></div>
+     <div class="cd-item"><div class="cd-num">${m}</div><div class="cd-label">Mins</div></div>
+     <div class="cd-item"><div class="cd-num">${s}</div><div class="cd-label">Secs</div></div>`;
+}
+setInterval(buildCountdown,1000);
+
+function submitChallenge(){
+  const ta=document.getElementById('challenge-ta');
+  if(ta.value.trim().length<30){alert('Write a bit more — aim for at least 3 sentences!');return;}
+  state.xp+=50;saveState();
+  document.getElementById('nav-xp').textContent=state.xp;
+  markActivity();
+  const res=document.getElementById('challenge-result');
+  res.style.display='block';
+  res.innerHTML=`<div style="background:rgba(15,212,160,.1);border:1px solid rgba(15,212,160,.22);border-radius:var(--r-lg);padding:1.3rem;text-align:center;">
+    <div style="font-size:2rem;margin-bottom:.5rem;">🎉</div>
+    <div style="font-family:'Fredoka',sans-serif;font-size:1.25rem;color:var(--accent-teal);margin-bottom:.35rem;">Challenge Submitted!</div>
+    <div style="font-size:.88rem;color:var(--text-2);">+50 XP earned · Streak maintained 🔥<br>New challenge drops every Monday!</div>
+  </div>`;
+  ta.disabled=true;
+}
+
+// ════════════════════════════════
+// AI PRACTICE ZONE
+// ════════════════════════════════
+const TEMPLATES = {
+  '5-6':[
+    {e:'🐶',label:'Animal Story',prompt:'Tell me a funny story about a dog who can talk!'},
+    {e:'🚀',label:'Space Adventure',prompt:'Tell me about a silly alien who visits Earth for the first time.'},
+    {e:'❓',label:'Why Question',prompt:'Why is the sky blue? Explain it like I\'m 5 years old.'},
+    {e:'🎨',label:'Describe a Picture',prompt:'Describe a magical rainbow forest with friendly animals.'}
+  ],
+  '7-8':[
+    {e:'🦸',label:'Superhero Creator',prompt:'Create a new superhero with an unusual power and tell me their origin story.'},
+    {e:'🌍',label:'World Facts',prompt:'Tell me 5 amazing facts about the ocean that most people don\'t know.'},
+    {e:'📖',label:'Story Starter',prompt:'Start an adventure story about a child who finds a magical map in their attic.'},
+    {e:'🤔',label:'Big Question',prompt:'If you could solve one problem in the world, what would it be and how?'}
+  ],
+  '9-10':[
+    {e:'🔬',label:'Science Explainer',prompt:'You are a scientist. Explain how black holes form in simple but accurate language.'},
+    {e:'💡',label:'Invention Pitch',prompt:'You are an inventor. Pitch me a futuristic gadget that helps people save time.'},
+    {e:'🗺️',label:'Historical Journey',prompt:'Take me on a tour of Ancient Rome as if you are a time-travelling guide.'},
+    {e:'📊',label:'Debate Both Sides',prompt:'Give me the strongest argument FOR and AGAINST homework in schools.'}
+  ],
+  '11-12':[
+    {e:'🧬',label:'Future Tech',prompt:'You are a futurist in 2050. Describe 3 technologies that now exist and explain how they changed society.'},
+    {e:'⚖️',label:'Ethics Dilemma',prompt:'Present both sides of this dilemma: Should AI be allowed to create art that is sold commercially?'},
+    {e:'🛠️',label:'System Design',prompt:'Design a simple AI system that could help students revise for exams. Include inputs, outputs and how it learns.'},
+    {e:'📰',label:'Journalist Mode',prompt:'You are a journalist in 2030. Write a news headline and opening paragraph about a breakthrough in AI.'}
+  ]
+};
+
+const TIPS = {
+  '5-6':['Use fun words!','Ask "why" questions','Say what you like','Keep it short and clear'],
+  '7-8':['Give details','Say how long','Say who it\'s for','Ask for a list'],
+  '9-10':['Use CRST framework','Give AI a role','Be very specific','Ask for examples'],
+  '11-12':['Use few-shot examples','Define format precisely','Add constraints','Chain your prompts']
+};
+
+const PRACTICE_RESPONSES = {
+  '5-6':'Here\'s a fun answer just for you! 🌟 Once upon a time, there was a curious little robot who loved asking "why?". Every single day, it would look at the world and wonder... why is grass green? Why do birds sing? Why does ice cream melt? The robot\'s favourite thing was learning something new — just like you\'re doing right now! Keep asking great questions! 🤖✨',
+  '7-8':'Great prompt! 🚀 Here\'s what I found: The world is absolutely packed with incredible things most people never notice. Did you know that honey found in Ancient Egyptian tombs is still perfectly edible after 3,000 years? Or that a cloud can weigh over a million kilograms — yet still float? The universe is genuinely stranger and more wonderful than most people realise. What else would you like to explore? 🌍',
+  '9-10':'Excellent use of context in your prompt! Here\'s a structured response: 🔬 The concept you\'re exploring connects to several fascinating areas. First, let\'s consider the historical context — this field has evolved dramatically over the past two decades. Second, the current state involves sophisticated interplay between multiple factors. Third, looking forward, researchers predict significant developments by 2030. Would you like me to go deeper on any of these three dimensions? 📊',
+  '11-12':'Strong prompt architecture. Here\'s a nuanced multi-part response: The question you\'ve raised sits at the intersection of technology, ethics, and human behaviour — which makes it genuinely complex. On one hand, the consequentialist perspective would argue that outcomes matter most: if the technology produces net benefit, the means are justified. On the other hand, a deontological framework would insist that certain principles cannot be violated regardless of outcomes. The most sophisticated thinkers in this space typically integrate both frameworks, asking not just "what works?" but "what is right?" — and then seeking solutions that satisfy both criteria. 🧠'
+};
+
+function setPracticeMode(mode, btn){
+  practiceMode=mode;
+  document.querySelectorAll('.age-sel-btn').forEach(b=>{b.classList.remove('active');});
+  btn.classList.add('active');
+  const colors={'5-6':'var(--age-56)','7-8':'var(--age-78)','9-10':'var(--age-910)','11-12':'var(--age-1112)'};
+  document.getElementById('practice-mode-label').style.color=colors[mode];
+  document.getElementById('practice-mode-label').textContent='Ages '+mode+' Mode';
+  buildTemplates();buildTips();
+  document.getElementById('practice-ta').placeholder=
+    mode==='5-6'?'Try asking: "Tell me a funny story about a dragon!" 🐉':
+    mode==='7-8'?'Try: "Create a superhero with an unusual power and explain their story."':
+    mode==='9-10'?'Try using the CRST framework: Give AI a role, add context, be specific...':
+    'Try a structured meta-prompt with persona, task, context, format, and constraints.';
+}
+
+function buildTemplates(){
+  document.getElementById('template-grid').innerHTML=TEMPLATES[practiceMode].map(T=>`
+    <div class="template-card" onclick="useTemplate('${T.prompt.replace(/'/g,"\\'")}')">
+      <div class="template-emoji">${T.e}</div>
+      <div class="template-label">${T.label}</div>
+      <div class="template-prompt">${T.prompt}</div>
+    </div>`).join('');
+}
+
+function buildTips(){
+  document.getElementById('tips-grid').innerHTML=TIPS[practiceMode].map(t=>`
+    <div class="tip-item"><span>✦</span><span>${t}</span></div>`).join('');
+}
+
+function useTemplate(prompt){
+  document.getElementById('practice-ta').value=prompt;
+  updateCharCount();
+}
+
+function updateCharCount(){
+  const v=document.getElementById('practice-ta').value;
+  document.getElementById('char-count').textContent=v.length;
+}
+
+function runPractice(){
+  const prompt=document.getElementById('practice-ta').value.trim();
+  if(!prompt){alert('Type a prompt first!');return;}
+  const area=document.getElementById('ai-resp-area');
+  area.innerHTML=`<div class="ai-response-label">🤖 Angel AI is thinking...</div>
+    <div class="ai-thinking"><div class="ai-dots"><span></span><span></span><span></span></div></div>`;
+  setTimeout(()=>{
+    const resp=PRACTICE_RESPONSES[practiceMode];
+    area.innerHTML=`<div class="ai-response-label">🤖 Angel AI says...</div>
+      <div class="ai-response-text">${resp}</div>`;
+    state.xp+=5;saveState();document.getElementById('nav-xp').textContent=state.xp;
+    markActivity();
+  },1800);
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  const ta=document.getElementById('practice-ta');
+  if(ta) ta.addEventListener('input',updateCharCount);
+});
+
+// ════════════════════════════════
+// BADGES
+// ════════════════════════════════
+const ALL_BADGES=[
+  {e:'🌟',name:'First Steps',desc:'Complete your very first lesson',key:'first_lesson'},
+  {e:'🔥',name:'On Fire',desc:'Achieve a 3-day streak',key:'streak_3'},
+  {e:'⚡',name:'Week Warrior',desc:'Achieve a 7-day streak',key:'streak_7'},
+  {e:'🏆',name:'Perfect Score',desc:'Get 100% on a quiz',key:'perfect_quiz'},
+  {e:'🧪',name:'Lab Explorer',desc:'Use the AI Practice Zone',key:'practiced'},
+  {e:'📅',name:'Challenge Accepted',desc:'Complete a Weekly Challenge',key:'challenge_done'},
+  {e:'🚀',name:'Rocket Start',desc:'Earn 50 XP',key:'xp_50'},
+  {e:'💎',name:'XP Diamond',desc:'Earn 200 XP',key:'xp_200'},
+  {e:'🌈',name:'All Ages',desc:'Try all 4 age groups',key:'all_ages'},
+  {e:'🎓',name:'Graduate',desc:'Complete a full module',key:'module_done'},
+  {e:'🤖',name:'Robot Friend',desc:'Complete the 5-6 free lesson',key:'done_56'},
+  {e:'🌍',name:'World Changer',desc:'Complete 10 lessons total',key:'lessons_10'}
+];
+
+function checkBadges(){
+  const done=Object.keys(state.done).length;
+  const newBadges=[];
+  if(done>=1&&!state.badges.includes('first_lesson')){state.badges.push('first_lesson');newBadges.push('first_lesson');}
+  if(state.streak>=3&&!state.badges.includes('streak_3')){state.badges.push('streak_3');}
+  if(state.streak>=7&&!state.badges.includes('streak_7')){state.badges.push('streak_7');}
+  if(quizResults.length&&quizResults.every(Boolean)&&!state.badges.includes('perfect_quiz')){state.badges.push('perfect_quiz');}
+  if(state.xp>=50&&!state.badges.includes('xp_50')){state.badges.push('xp_50');}
+  if(state.xp>=200&&!state.badges.includes('xp_200')){state.badges.push('xp_200');}
+  if(state.done['5-6_0_0']&&!state.badges.includes('done_56')){state.badges.push('done_56');}
+  if(done>=10&&!state.badges.includes('lessons_10')){state.badges.push('lessons_10');}
+  saveState();
+}
+
+function buildBadgesScreen(){
+  const lvl=Math.floor(state.xp/100)+1;
+  const xpInLevel=state.xp%100;
+  const levels=['','Curious Beginner','Prompt Explorer','AI Adventurer','Prompt Engineer','AI Architect'];
+  document.getElementById('badge-xp-total').textContent=state.xp;
+  document.getElementById('xp-level-label').textContent='Level '+lvl+' — '+(levels[Math.min(lvl,5)]||'AI Master');
+  document.getElementById('level-bar-fill').style.width=xpInLevel+'%';
+  document.getElementById('level-next-label').textContent=xpInLevel+' / 100 XP to Level '+(lvl+1);
+  document.getElementById('badges-grid-el').innerHTML=ALL_BADGES.map(B=>{
+    const earned=state.badges.includes(B.key);
+    return `<div class="badge-item ${earned?'earned':'locked-badge'}">
+      <span class="badge-emoji-big">${B.e}</span>
+      <div class="badge-name">${B.name}</div>
+      <div class="badge-desc">${B.desc}</div>
+      ${earned?'<div class="badge-earned-chip">✓ Earned</div>':''}
+    </div>`;
+  }).join('');
+}
+
+// Override showScreen to build dynamic screens
+const _showScreen=showScreen;
+window.showScreen=function(id){
+  _showScreen(id);
+  if(id==='badges') buildBadgesScreen();
+  if(id==='challenge') buildCountdown();
+  if(id==='practice'){buildTemplates();buildTips();}
+};
+
+// ════════════════════════════════
+// MODAL
+// ════════════════════════════════
+function showModal(){document.getElementById('modal-overlay').classList.add('open');}
+function closeModal(){document.getElementById('modal-overlay').classList.remove('open');}
+function handleModalClick(e){if(e.target===document.getElementById('modal-overlay'))closeModal();}
+
+// ════════════════════════════════
+// INIT
+// ════════════════════════════════
+refreshHome();
+buildCountdown();
+buildTemplates();
+buildTips();
+</script>
+</body>
+</html>
