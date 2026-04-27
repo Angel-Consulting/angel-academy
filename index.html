@@ -9,7 +9,7 @@
 :root{
   --bg-deep:#07090F;--bg-surface:#0D1117;--bg-card:#131B2E;--bg-card2:#1A2540;--bg-card3:#1F2D4A;
   --accent-purple:#9B72F8;--accent-teal:#0FD4A0;--accent-gold:#FFC233;--accent-pink:#FF6FAD;--accent-blue:#4B9EFF;--accent-orange:#FF8C42;
-  --text-1:#EEF2FF;--text-2:#8A9ABF;--text-3:#404E70;
+  --text-1:#EEF2FF;--text-2:#B8C8E8;--text-3:#5A6A8A;
   --age-56:#FF6FAD;--age-78:#0FD4A0;--age-910:#9B72F8;--age-1112:#FFC233;
   --r-md:10px;--r-lg:16px;--r-xl:22px;--r-full:999px;
 }
@@ -232,6 +232,43 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 .l-arrow{color:var(--text-3);font-size:.85rem;flex-shrink:0;}
 
 /* ════════════════════════════════════════
+   VIDEO LESSON SCREEN
+════════════════════════════════════════ */
+.video-wrap{max-width:860px;margin:0 auto;padding:0 1.5rem 4rem;}
+.video-topbar{display:flex;align-items:center;padding:1rem 0 1.25rem;gap:1rem;}
+.video-lesson-info{flex:1;}
+.video-lesson-title{font-family:'Fredoka',sans-serif;font-size:1.1rem;font-weight:600;}
+.video-lesson-meta{font-size:.76rem;color:var(--text-2);margin-top:.18rem;}
+.video-player-card{background:#000;border-radius:var(--r-xl);overflow:hidden;
+  border:1px solid rgba(255,255,255,.07);box-shadow:0 20px 60px rgba(0,0,0,.5);
+  position:relative;}
+.video-aspect{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;}
+.video-aspect iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;}
+.video-placeholder{position:absolute;top:0;left:0;width:100%;height:100%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,rgba(155,114,248,.15),rgba(15,212,160,.1));
+  gap:.75rem;}
+.video-placeholder-icon{font-size:3.5rem;}
+.video-placeholder-text{font-family:'Fredoka',sans-serif;font-size:1.1rem;color:var(--text-2);text-align:center;padding:0 2rem;}
+.video-placeholder-sub{font-size:.82rem;color:var(--text-3);text-align:center;padding:0 2rem;}
+.video-info-strip{display:flex;align-items:center;justify-content:space-between;
+  padding:1rem 1.25rem;background:var(--bg-card);border-radius:0 0 var(--r-xl) var(--r-xl);
+  border-top:1px solid rgba(255,255,255,.05);flex-wrap:wrap;gap:.75rem;}
+.video-duration-chip{display:flex;align-items:center;gap:.4rem;font-size:.8rem;
+  color:var(--text-2);}
+.video-module-chip{font-size:.72rem;font-weight:600;border-radius:var(--r-full);
+  padding:.22rem .75rem;background:rgba(155,114,248,.1);color:var(--accent-purple);
+  border:1px solid rgba(155,114,248,.2);}
+.video-continue-area{margin-top:1.75rem;text-align:center;}
+.video-continue-note{font-size:.82rem;color:var(--text-3);margin-bottom:1rem;}
+.video-continue-btn{padding:.9rem 2.8rem;font-size:1rem;font-weight:600;
+  background:linear-gradient(135deg,#9B72F8,#7C3AED);color:#fff;
+  border-radius:var(--r-full);border:none;cursor:pointer;font-family:'DM Sans',sans-serif;
+  transition:all .22s;display:inline-flex;align-items:center;gap:.55rem;}
+.video-continue-btn:hover{filter:brightness(1.12);transform:translateY(-2px);
+  box-shadow:0 8px 28px rgba(155,114,248,.4);}
+
+/* ════════════════════════════════════════
    LESSON PLAYER SCREEN
 ════════════════════════════════════════ */
 .lesson-topbar{display:flex;align-items:center;padding:1rem 1.75rem;max-width:780px;margin:0 auto;gap:1rem;}
@@ -273,7 +310,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 .int-box{background:var(--bg-card);border:1px solid rgba(255,255,255,.07);
   border-radius:var(--r-lg);padding:1.5rem;margin:1.5rem 0;}
 .int-title{font-family:'Fredoka',sans-serif;font-size:1.05rem;color:var(--accent-teal);margin-bottom:.45rem;}
-.int-q{font-size:.87rem;color:var(--text-2);margin-bottom:.8rem;line-height:1.55;}
+.int-q{font-size:.87rem;color:var(--text-1);margin-bottom:.8rem;line-height:1.55;}
 .opt-grid{display:grid;grid-template-columns:1fr 1fr;gap:.55rem;}
 .opt-btn{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);
   border-radius:var(--r-md);padding:.78rem .9rem;cursor:pointer;font-family:'DM Sans',sans-serif;
@@ -451,6 +488,52 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
   padding:.1rem .55rem;margin-top:.4rem;font-weight:700;}
 
 /* ════════════════════════════════════════
+   TRY IT SCREEN
+════════════════════════════════════════ */
+.tryit-wrap{max-width:780px;margin:0 auto;padding:0 1.5rem 4rem;}
+.tryit-header{display:flex;align-items:center;justify-content:space-between;
+  padding:1.25rem 0 1rem;flex-wrap:wrap;gap:.75rem;}
+.tryit-title{font-family:'Fredoka',sans-serif;font-size:1.5rem;font-weight:600;
+  display:flex;align-items:center;gap:.5rem;}
+.tryit-badge{font-size:.75rem;font-weight:700;border-radius:var(--r-full);
+  padding:.3rem .9rem;background:rgba(155,114,248,.15);color:var(--accent-purple);
+  border:1px solid rgba(155,114,248,.3);white-space:nowrap;}
+.tryit-instruction{font-size:.95rem;color:var(--text-1);line-height:1.7;margin-bottom:1.25rem;}
+.tryit-context{background:rgba(255,194,51,.07);border:1px solid rgba(255,194,51,.2);
+  border-left:3px solid var(--accent-gold);border-radius:var(--r-md);
+  padding:1rem 1.25rem;margin-bottom:1.4rem;font-size:.88rem;line-height:1.7;color:var(--text-1);}
+.tryit-context-label{font-size:.68rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:.08em;color:var(--accent-gold);margin-bottom:.35rem;}
+.prompts-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.4rem;}
+@media(max-width:620px){.prompts-grid{grid-template-columns:1fr;}}
+.prompt-card{border-radius:var(--r-lg);padding:1.1rem 1.15rem;}
+.prompt-card.prompt-a{background:rgba(255,80,80,.06);border:1.5px solid rgba(255,80,80,.25);}
+.prompt-card.prompt-b{background:rgba(15,212,160,.06);border:1.5px solid rgba(15,212,160,.28);}
+.prompt-card-label{font-size:.72rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:.07em;margin-bottom:.65rem;display:flex;align-items:center;gap:.4rem;}
+.prompt-card.prompt-a .prompt-card-label{color:#FF6060;}
+.prompt-card.prompt-b .prompt-card-label{color:var(--accent-teal);}
+.prompt-text{font-family:monospace;font-size:.84rem;line-height:1.75;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);
+  border-radius:var(--r-md);padding:.85rem 1rem;color:var(--text-1);white-space:pre-wrap;word-break:break-word;}
+.tryit-reflection{background:var(--bg-card);border:1px solid rgba(155,114,248,.18);
+  border-radius:var(--r-lg);padding:1.2rem 1.3rem;margin-bottom:1.4rem;}
+.tryit-reflection-label{font-size:.72rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:.08em;color:var(--accent-purple);margin-bottom:.5rem;display:flex;align-items:center;gap:.4rem;}
+.tryit-reflection p{font-size:.9rem;color:var(--text-1);line-height:1.72;}
+.tryit-progress-bar{background:var(--bg-card2);border:1px solid rgba(255,255,255,.07);
+  border-radius:var(--r-lg);padding:1rem 1.3rem;margin-bottom:1.5rem;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem;}
+.tryit-progress-label{font-size:.8rem;font-weight:600;color:var(--text-1);display:flex;align-items:center;gap:.4rem;}
+.tryit-progress-tiers{font-size:.78rem;color:var(--text-2);}
+.tryit-complete-btn{width:100%;padding:1rem;font-size:1rem;font-weight:700;
+  background:linear-gradient(135deg,#0FD4A0,#059669);color:#052e1c;
+  border-radius:var(--r-full);border:none;cursor:pointer;font-family:'DM Sans',sans-serif;
+  transition:all .22s;display:flex;align-items:center;justify-content:center;gap:.55rem;}
+.tryit-complete-btn:hover{filter:brightness(1.08);transform:translateY(-2px);
+  box-shadow:0 8px 28px rgba(15,212,160,.35);}
+
+/* ════════════════════════════════════════
    LOCKED MODAL
 ════════════════════════════════════════ */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);
@@ -602,6 +685,32 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 </div>
 </div>
 
+<!-- ══════════ VIDEO LESSON PLAYER ══════════ -->
+<div id="screen-video" class="screen">
+<div class="video-wrap">
+  <div class="video-topbar">
+    <button class="back-btn" style="padding:0;margin:0;white-space:nowrap;" onclick="showScreen('courses')">← Back</button>
+    <div class="video-lesson-info">
+      <div class="video-lesson-title" id="video-lesson-title">Lesson</div>
+      <div class="video-lesson-meta" id="video-lesson-meta">Module 1 · Ages 9–10</div>
+    </div>
+  </div>
+  <div class="video-player-card">
+    <div class="video-aspect" id="video-aspect-el"></div>
+    <div class="video-info-strip">
+      <div class="video-duration-chip">🎬 <span id="video-duration-label">8 min 2 sec</span></div>
+      <div class="video-module-chip" id="video-module-chip">Module 1 · Lesson 1</div>
+    </div>
+  </div>
+  <div class="video-continue-area">
+    <div class="video-continue-note">Watch the full lesson video above, then continue to your activities below.</div>
+    <button class="video-continue-btn" onclick="continueToActivity()">
+      Continue to Activity ✦
+    </button>
+  </div>
+</div>
+</div>
+
 <!-- ══════════ LESSON PLAYER ══════════ -->
 <div id="screen-lesson" class="screen">
   <div class="lesson-topbar">
@@ -620,6 +729,40 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
   <div class="quiz-wrap" id="quiz-el"></div>
 </div>
 
+<!-- ══════════ TRY IT EXERCISE ══════════ -->
+<div id="screen-tryit" class="screen">
+<div class="tryit-wrap">
+  <div class="tryit-header">
+    <div class="tryit-title">🔍 Try It — Analyst Exercise</div>
+    <div class="tryit-badge">AI Investigator 🔍 Activity</div>
+  </div>
+  <p class="tryit-instruction"><strong>Open ChatGPT or Claude and run both prompts.</strong> Compare the outputs analytically — this is where your Analyst skills become real practice.</p>
+  <div class="tryit-context">
+    <div class="tryit-context-label">⭐ Context</div>
+    AI learns from patterns rather than fixed rules — which means it can handle questions it has never been asked before. Let us test this directly and see what happens when we give it very different amounts of information.
+  </div>
+  <div class="prompts-grid">
+    <div class="prompt-card prompt-a">
+      <div class="prompt-card-label">⚠️ Prompt A — A vague prompt — very little to work with</div>
+      <div class="prompt-text">I am 9 years old. Tell me about AI.</div>
+    </div>
+    <div class="prompt-card prompt-b">
+      <div class="prompt-card-label">✅ Prompt B — A specific prompt — lots of useful context</div>
+      <div class="prompt-text">Hello! I am 9 years old and I have just started learning about artificial intelligence for the very first time. I understand that AI learns from patterns rather than following fixed rules. Could you explain — in language right for my age — what the single most surprising thing is about how AI learns? And give me one real-world example of AI doing something that ordinary rule-following software simply could not do. Keep it to 4 clear sentences.</div>
+    </div>
+  </div>
+  <div class="tryit-reflection">
+    <div class="tryit-reflection-label">🧐 Analytical Reflection</div>
+    <p>Which response was more useful and interesting? What specific things in Prompt B gave the AI more to work with? What does this tell you about how the quality of your input affects the quality of what AI gives back?</p>
+  </div>
+  <div class="tryit-progress-bar">
+    <div class="tryit-progress-label">🥇 AI Investigator 🔍 Progress</div>
+    <div class="tryit-progress-tiers">Complete 4 exercises = 🥉 Bronze &nbsp;|&nbsp; 5 = 🥈 Silver &nbsp;|&nbsp; All 6 = 🥇 Gold</div>
+  </div>
+  <button class="tryit-complete-btn" onclick="completeTryIt()">✅ Completed!</button>
+</div>
+</div>
+
 <!-- ══════════ COMPLETE ══════════ -->
 <div id="screen-complete" class="screen">
   <div class="complete-wrap" id="complete-el"></div>
@@ -630,10 +773,10 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 <div class="challenge-wrap">
   <button class="back-btn" onclick="goHome()">← Home</button>
   <div class="wc-hero">
-    <span class="wc-emoji">🌍</span>
+    <span class="wc-emoji">🤖</span>
     <div class="wc-week">Week 1 Challenge</div>
-    <div class="wc-title">AI Around the World</div>
-    <div class="wc-desc">This week: Discover how AI is being used in different countries and write a prompt that helps someone in another country solve a problem they face every day.</div>
+    <div class="wc-title">AI in the Wild</div>
+    <div class="wc-desc">This week: You've just learned what AI really is and how it learns from data. Now it's time to spot it in the real world. Find one AI tool you use or have seen — and analyse it like an Analyst.</div>
     <div class="countdown-row" id="countdown-row"></div>
     <button class="btn btn-primary btn-lg" onclick="document.querySelector('.challenge-steps').scrollIntoView({behavior:'smooth'})">Start This Week's Challenge →</button>
   </div>
@@ -641,28 +784,28 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
     <div class="step-item">
       <div class="step-num">1</div>
       <div class="step-content">
-        <div class="step-title">Read the Scenario</div>
-        <div class="step-sub">A farmer in Kenya needs help knowing when to water their crops. They don't have reliable internet but do have a basic phone. How could AI help them?</div>
+        <div class="step-title">Pick Your AI</div>
+        <div class="step-sub">Choose one AI tool you've seen or used — it could be a voice assistant, a recommendation system on a streaming service, a chatbot, or anything else. Write down what it does.</div>
       </div>
     </div>
     <div class="step-item">
       <div class="step-num">2</div>
       <div class="step-content">
-        <div class="step-title">Think About It</div>
-        <div class="step-sub">What information would an AI need to help this farmer? What would the ideal solution look like? Think about the constraints they face.</div>
+        <div class="step-title">Think Like an Analyst</div>
+        <div class="step-sub">What do you think this AI learned from? What kind of data would it have needed? How do you think it gets better over time? There are no wrong answers — this is your analysis.</div>
       </div>
     </div>
     <div class="step-item">
       <div class="step-num">3</div>
       <div class="step-content">
-        <div class="step-title">Write Your AI Prompt</div>
-        <div class="step-sub">Write a prompt below that you would give to an AI to help solve this farmer's problem. Remember your CRST framework — Context, Role, Specificity, Tone!</div>
+        <div class="step-title">Write Your Analysis</div>
+        <div class="step-sub">Write 3–4 sentences below describing the AI you chose, what you think it learned from, and one question you still have about how it works.</div>
       </div>
     </div>
   </div>
   <div class="challenge-input-box">
     <div style="font-family:'Fredoka',sans-serif;font-size:1rem;margin-bottom:.7rem;color:var(--accent-teal);">✍️ Write Your Challenge Prompt</div>
-    <textarea class="challenge-textarea" id="challenge-ta" placeholder="Write your prompt here... Think about who the AI should be, what it needs to know, and how detailed the answer should be."></textarea>
+    <textarea class="challenge-textarea" id="challenge-ta" placeholder="Name the AI tool, describe what it does, explain what data you think it learned from, and write one question you still have about it..."></textarea>
     <div style="font-size:.75rem;color:var(--text-3);margin:.5rem 0;">Aim for at least 3–4 sentences. The more detail, the better your result!</div>
     <div class="challenge-submit-row">
       <button class="btn btn-teal btn-lg" onclick="submitChallenge()">Submit &amp; Earn 50 XP →</button>
@@ -964,9 +1107,81 @@ const FREE_LESSON = {
 };
 
 // ════════════════════════════════
+// VIMEO VIDEO IDs  ← swap these in once uploaded
+// ════════════════════════════════
+const VIMEO_IDS = {
+  '9-10_0_0': '1184056933'   // Ages 9–10 · Module 1 · Lesson 1.1
+};
+
+// ════════════════════════════════
+// FREE LESSON — AGES 9–10 · LESSON 1.1
+// Welcome, Analyst — What Is AI, Really?
+// ════════════════════════════════
+const FREE_LESSON_910 = {
+  slides:[
+    {
+      tag:'📋 Key Concepts', tagBg:'rgba(155,114,248,.12)', tagColor:'#9B72F8',
+      heading:'Three Ideas Worth Holding On To',
+      body:'In the next few slides, we\'ll lock in the most important ideas from the video. Then it\'s time for your Knowledge Check. Let\'s go, Analyst.'
+    },
+    {
+      tag:'⚡ Core Distinction', tagBg:'rgba(15,212,160,.11)', tagColor:'#0FD4A0',
+      heading:'AI vs. Traditional Software',
+      body:'Traditional software follows rules that humans write — every outcome is planned in advance. AI is different: it learns its own rules from data. That shift makes it fundamentally more powerful, and fundamentally less predictable.',
+      funFact:'There are AI models that have learned from more text than a human could read in 100,000 lifetimes. The scale of what they\'ve absorbed is genuinely hard to imagine.'
+    },
+    {
+      tag:'🤖 AI Insight', tagBg:'rgba(255,194,51,.1)', tagColor:'#FFC233',
+      heading:'A Word from Your AI Co-Presenter',
+      char:{
+        bg:'rgba(155,114,248,.18)',
+        emoji:'⚡',
+        name:'AI Insight',
+        say:'I\'m a large language model — which means I learned how to respond by studying billions of examples of human writing. I don\'t follow a fixed script. I generate each response based on patterns I identified during training. That\'s why I can answer questions that no one has ever asked me before.'
+      }
+    },
+    {
+      tag:'🎯 Check Your Understanding', tagBg:'rgba(255,111,173,.1)', tagColor:'#FF6FAD',
+      heading:'Quick Thinking Check',
+      int:{
+        title:'Analyst Check',
+        q:'What is the most accurate way to describe how AI "learns"?',
+        opts:['It is programmed with rules by engineers','It finds patterns in large amounts of data','It copies answers from the internet','It thinks exactly like a human brain'],
+        c:1,
+        fb:'Exactly right. AI learns by identifying patterns in data — not by following hand-written rules, and not by copying existing answers verbatim.'
+      }
+    },
+    {
+      tag:'🎯 Quiz Time!', tagBg:'rgba(15,212,160,.11)', tagColor:'#0FD4A0',
+      heading:'Knowledge Check — Let\'s Go, Analyst!',
+      body:'Three questions based on what you\'ve just watched and reviewed. Take your time — there\'s no rush. Show me what you\'ve got.',
+      isLast:true
+    }
+  ],
+  quiz:[
+    {
+      q:'What makes AI fundamentally different from traditional software?',
+      a:['It runs faster on modern computers','It learns from data and improves over time','It was invented more recently than the internet','It only works when connected online'],
+      c:1
+    },
+    {
+      q:'Which of these best describes what a large language model has been trained on?',
+      a:['TV programmes and documentary films','A specially written AI textbook','Billions of examples of human-written text','The personal memories of its creators'],
+      c:2
+    },
+    {
+      q:'Why does understanding AI matter particularly right now?',
+      a:['Because robots will replace all humans very soon','Because AI is transforming how we work, learn, and solve problems — and that is already happening','Because it is now required in school examinations','Because it is the most entertaining technology ever created'],
+      c:1
+    }
+  ]
+};
+
+// ════════════════════════════════
 // STATE
 // ════════════════════════════════
 let currentAge = null;
+let currentLessonData = null;
 let currentSlideIdx = 0;
 let currentQuizIdx = 0;
 let quizResults = [];
@@ -1099,7 +1314,7 @@ function buildDashboard(age){
           <div class="module-num" style="background:${numBg};color:${numColor};border:1px solid ${mi===0?A.border:'rgba(255,255,255,.07)'};">${mod.icon}</div>
           <div class="module-title-text">Module ${mi+1}: ${mod.title}</div>
           <div class="module-prog-chip" style="background:${chipBg};color:${chipColor};border:1px solid ${chipBorder};">${modDone}/${mod.lessons.length}</div>
-          <div class="module-chevron ${isOpen?'open'}" id="chev-${mi}">▼</div>
+          <div class="module-chevron ${isOpen?'open':''}" id="chev-${mi}">▼</div>
         </div>
         <div class="lesson-rows" id="mod-rows-${mi}" style="${isOpen?'max-height:9999px;':'max-height:0;'}">
     `;
@@ -1147,15 +1362,47 @@ function toggleModule(mi){
 // ════════════════════════════════
 function startLesson(mi,li){
   if(mi!==0||li!==0){showModal();return;}
+
+  // Select the correct lesson data for this age group
+  if(currentAge==='9-10'){
+    currentLessonData=FREE_LESSON_910;
+    const lessonTitle=AGES[currentAge].modules[0].lessons[0].t;
+    document.getElementById('video-lesson-title').textContent=lessonTitle;
+    document.getElementById('video-lesson-meta').textContent='Module 1 · Ages 9–10';
+    document.getElementById('video-duration-label').textContent='8 min 2 sec';
+    document.getElementById('video-module-chip').textContent='Module 1 · Lesson 1.1';
+    const vimeoId=VIMEO_IDS['9-10_0_0'];
+    const aspectEl=document.getElementById('video-aspect-el');
+    if(vimeoId==='YOUR_VIMEO_VIDEO_ID'){
+      aspectEl.innerHTML=`<div class="video-placeholder">
+        <div class="video-placeholder-icon">🎬</div>
+        <div class="video-placeholder-text">Video coming soon!</div>
+        <div class="video-placeholder-sub">Paste your Vimeo ID into VIMEO_IDS in the script to activate this player.</div>
+      </div>`;
+    } else {
+      aspectEl.innerHTML=`<iframe src="https://player.vimeo.com/video/${vimeoId}?badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" title="${lessonTitle}"></iframe>`;
+    }
+    markActivity();
+    showScreen('video');
+  } else {
+    currentLessonData=FREE_LESSON;
+    currentSlideIdx=0;
+    document.getElementById('lesson-name-bar').textContent=AGES[currentAge].modules[0].lessons[0].t;
+    renderSlide();
+    markActivity();
+    showScreen('lesson');
+  }
+}
+
+function continueToActivity(){
   currentSlideIdx=0;
   document.getElementById('lesson-name-bar').textContent=AGES[currentAge].modules[0].lessons[0].t;
   renderSlide();
   showScreen('lesson');
-  markActivity();
 }
 
 function renderSlide(){
-  const slides=FREE_LESSON.slides;
+  const slides=currentLessonData.slides;
   const S=slides[currentSlideIdx];
   const total=slides.length;
   const pct=total>1?Math.round((currentSlideIdx/(total-1))*100):100;
@@ -1218,7 +1465,7 @@ function pickOpt(idx,correct,fb){
   el.textContent=fb; el.className='int-fb fb-ok';
   if(ok){state.xp+=5;saveState();document.getElementById('nav-xp').textContent=state.xp;}
 }
-function nextSlide(){if(currentSlideIdx<FREE_LESSON.slides.length-1){currentSlideIdx++;renderSlide();}}
+function nextSlide(){if(currentSlideIdx<currentLessonData.slides.length-1){currentSlideIdx++;renderSlide();}}
 function prevSlide(){if(currentSlideIdx>0){currentSlideIdx--;renderSlide();}}
 
 // ════════════════════════════════
@@ -1227,7 +1474,7 @@ function prevSlide(){if(currentSlideIdx>0){currentSlideIdx--;renderSlide();}}
 function startQuiz(){currentQuizIdx=0;quizResults=[];renderQuestion();showScreen('quiz');}
 
 function renderQuestion(){
-  const Qs=FREE_LESSON.quiz;
+  const Qs=currentLessonData.quiz;
   const Q=Qs[currentQuizIdx];
   const A=AGES[currentAge];
   const letters=['A','B','C','D'];
@@ -1254,7 +1501,7 @@ function renderQuestion(){
 }
 
 function pickAns(idx){
-  const Q=FREE_LESSON.quiz[currentQuizIdx];
+  const Q=currentLessonData.quiz[currentQuizIdx];
   const ok=idx===Q.c;
   document.querySelectorAll('.ans-btn').forEach((b,i)=>{
     b.disabled=true;
@@ -1268,7 +1515,18 @@ function pickAns(idx){
   if(ok){state.xp+=10;saveState();document.getElementById('nav-xp').textContent=state.xp;}
   document.getElementById('q-next-btn').style.display='inline-flex';
 }
-function advanceQuiz(){currentQuizIdx++;if(currentQuizIdx<FREE_LESSON.quiz.length) renderQuestion(); else showComplete();}
+function advanceQuiz(){currentQuizIdx++;if(currentQuizIdx<currentLessonData.quiz.length) renderQuestion(); else showTryIt();}
+
+function showTryIt(){
+  showScreen('tryit');
+}
+
+function completeTryIt(){
+  state.xp+=15;
+  saveState();
+  document.getElementById('nav-xp').textContent=state.xp;
+  showComplete();
+}
 
 // ════════════════════════════════
 // COMPLETE
